@@ -1,0 +1,1714 @@
+{
+  "name": "SemanticModel",
+  "compatibilityLevel": 1567,
+  "model": {
+    "culture": "en-US",
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "sourceQueryCulture": "en-US",
+    "tables": [
+      {
+        "name": "Users",
+        "lineageTag": "fce3bc21-709a-4230-b2bc-db738e526819",
+        "columns": [
+          {
+            "name": "UserID",
+            "dataType": "int64",
+            "sourceColumn": "UserID",
+            "summarizeBy": "none",
+            "lineageTag": "a62d3082-c66c-4622-88e0-fd297f6418da",
+            "formatString": "0"
+          },
+          {
+            "name": "FirstName",
+            "dataType": "string",
+            "sourceColumn": "FirstName",
+            "summarizeBy": "none",
+            "lineageTag": "c23fd8a3-a2fb-4019-abf9-e5ded5fc4a23"
+          },
+          {
+            "name": "LastName",
+            "dataType": "string",
+            "sourceColumn": "LastName",
+            "summarizeBy": "none",
+            "lineageTag": "7fc139eb-fac3-48bc-912e-c7581d1ffecc"
+          },
+          {
+            "name": "Email",
+            "dataType": "string",
+            "sourceColumn": "Email",
+            "summarizeBy": "none",
+            "lineageTag": "3764f70e-09b9-44cb-8db6-315ff435720b",
+            "isHidden": true
+          },
+          {
+            "name": "PhoneNumber",
+            "dataType": "string",
+            "sourceColumn": "PhoneNumber",
+            "summarizeBy": "none",
+            "lineageTag": "6e2f6c78-f072-47a6-a0af-6753ffd7ff57",
+            "isHidden": true
+          },
+          {
+            "name": "RegistrationDate",
+            "dataType": "dateTime",
+            "sourceColumn": "RegistrationDate",
+            "summarizeBy": "none",
+            "lineageTag": "783fde70-53c1-4e09-a073-7f0ede1001a0",
+            "formatString": "Long Date"
+          },
+          {
+            "name": "Registration Cohort",
+            "dataType": "string",
+            "sourceColumn": "Registration Cohort",
+            "summarizeBy": "none",
+            "lineageTag": "8d6dec4d-4b8a-4590-b3b6-3ff803eab774",
+            "sortByColumn": "Registration Cohort Sort"
+          },
+          {
+            "name": "Registration Cohort Sort",
+            "dataType": "int64",
+            "sourceColumn": "Registration Cohort Sort",
+            "summarizeBy": "none",
+            "lineageTag": "16261118-a9b8-4e81-a732-d2ecaea63591",
+            "formatString": "0",
+            "isHidden": true
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Users",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "let\n    Source = Csv.Document(File.Contents(FolderPath & \"\\Users.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),\n    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\n    Typed = Table.TransformColumnTypes(Headers, {{\"UserID\", Int64.Type}, {\"FirstName\", type text}, {\"LastName\", type text}, {\"Email\", type text}, {\"Password\", type text}, {\"PhoneNumber\", type text}, {\"RegistrationDate\", type datetime}}),\n    Dropped = Table.RemoveColumns(Typed, {\"Password\"}),\n    S1 = Table.AddColumn(Dropped, \"Registration Cohort\", each Date.ToText(Date.From([RegistrationDate]), [Format=\"MMM yyyy\", Culture=\"en-US\"]), type text),\n    S2 = Table.AddColumn(S1, \"Registration Cohort Sort\", each Date.Year([RegistrationDate])*100 + Date.Month([RegistrationDate]), Int64.Type)\nin\n    S2"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Bookings",
+        "lineageTag": "0896b46a-f902-4bbf-8438-3063b8d08292",
+        "columns": [
+          {
+            "name": "BookingID",
+            "dataType": "int64",
+            "sourceColumn": "BookingID",
+            "summarizeBy": "none",
+            "lineageTag": "37858f0a-b326-42ff-a067-ed7eeeec0943",
+            "formatString": "0"
+          },
+          {
+            "name": "UserID",
+            "dataType": "int64",
+            "sourceColumn": "UserID",
+            "summarizeBy": "none",
+            "lineageTag": "a1548b4c-0218-416b-85cd-c6f42107a1b3",
+            "formatString": "0"
+          },
+          {
+            "name": "BookingDateTime",
+            "dataType": "dateTime",
+            "sourceColumn": "BookingDateTime",
+            "summarizeBy": "none",
+            "lineageTag": "a85275c9-2dff-40a0-9fd8-115b35bce13f",
+            "formatString": "Long Date"
+          },
+          {
+            "name": "TotalPrice",
+            "dataType": "double",
+            "sourceColumn": "TotalPrice",
+            "summarizeBy": "none",
+            "lineageTag": "5652d026-9bd2-4e6e-ab47-42bf5954fe66",
+            "formatString": "#,0.00"
+          },
+          {
+            "name": "Status",
+            "dataType": "string",
+            "sourceColumn": "Status",
+            "summarizeBy": "none",
+            "lineageTag": "bff61dd0-6927-4b5e-811f-675511ea2077",
+            "sortByColumn": "Status Order"
+          },
+          {
+            "name": "ServiceType",
+            "dataType": "string",
+            "sourceColumn": "ServiceType",
+            "summarizeBy": "none",
+            "lineageTag": "864099ba-8467-4eee-88cc-7055f2ceec6a"
+          },
+          {
+            "name": "BookingDate",
+            "dataType": "dateTime",
+            "sourceColumn": "BookingDate",
+            "summarizeBy": "none",
+            "lineageTag": "9546158c-1e72-4b9f-8134-a7d674dd622c",
+            "formatString": "Long Date"
+          },
+          {
+            "name": "Status Order",
+            "dataType": "int64",
+            "sourceColumn": "Status Order",
+            "summarizeBy": "none",
+            "lineageTag": "4bffbf9c-f11b-41d8-9a5c-3efd54013971",
+            "formatString": "0",
+            "isHidden": true
+          },
+          {
+            "name": "Price Band",
+            "dataType": "string",
+            "sourceColumn": "Price Band",
+            "summarizeBy": "none",
+            "lineageTag": "367147fa-f1de-4f6e-88f2-36992a292fd6"
+          },
+          {
+            "name": "Booking Month Sort",
+            "dataType": "int64",
+            "sourceColumn": "Booking Month Sort",
+            "summarizeBy": "none",
+            "lineageTag": "b2959144-09e7-46f2-a4ae-2fa3ef1a6cdb",
+            "formatString": "0",
+            "isHidden": true
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Bookings",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "let\n    Source = Csv.Document(File.Contents(FolderPath & \"\\Bookings.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),\n    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\n    Typed = Table.TransformColumnTypes(Headers, {{\"BookingID\", Int64.Type}, {\"UserID\", Int64.Type}, {\"BookingDateTime\", type datetime}, {\"TotalPrice\", type number}, {\"Status\", type text}, {\"ServiceType\", type text}}),\n    S1 = Table.AddColumn(Typed, \"BookingDate\", each DateTime.From(Date.From([BookingDateTime])), type datetime),\n    S2 = Table.AddColumn(S1, \"Status Order\", each if [Status]=\"Completed\" then 1 else if [Status]=\"Confirmed\" then 2 else if [Status]=\"Pending\" then 3 else if [Status]=\"Refunded\" then 4 else 5, Int64.Type),\n    S3 = Table.AddColumn(S2, \"Price Band\", each if [TotalPrice] < 2500 then \"1. Under 2.5K\" else if [TotalPrice] < 10000 then \"2. 2.5K - 10K\" else if [TotalPrice] < 25000 then \"3. 10K - 25K\" else if [TotalPrice] < 75000 then \"4. 25K - 75K\" else \"5. 75K+\", type text),\n    S4 = Table.AddColumn(S3, \"Booking Month Sort\", each Date.Year([BookingDateTime])*100 + Date.Month([BookingDateTime]), Int64.Type)\nin\n    S4"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Flights",
+        "lineageTag": "30e9472c-9724-4121-a568-947b150d9978",
+        "columns": [
+          {
+            "name": "FlightID",
+            "dataType": "int64",
+            "sourceColumn": "FlightID",
+            "summarizeBy": "none",
+            "lineageTag": "cae43634-032f-4ba5-be62-33cb23c9d790",
+            "formatString": "0",
+            "isHidden": true
+          },
+          {
+            "name": "Airline",
+            "dataType": "string",
+            "sourceColumn": "Airline",
+            "summarizeBy": "none",
+            "lineageTag": "ee9989d6-909d-4f96-8ead-9645044d5295"
+          },
+          {
+            "name": "DepartureAirport",
+            "dataType": "string",
+            "sourceColumn": "DepartureAirport",
+            "summarizeBy": "none",
+            "lineageTag": "f994c1a6-6a6e-4424-b115-6bb087f5d5a0"
+          },
+          {
+            "name": "ArrivalAirport",
+            "dataType": "string",
+            "sourceColumn": "ArrivalAirport",
+            "summarizeBy": "none",
+            "lineageTag": "339188a7-590d-406c-b1d2-b39d3f51c9b4"
+          },
+          {
+            "name": "DepartureDateTime",
+            "dataType": "dateTime",
+            "sourceColumn": "DepartureDateTime",
+            "summarizeBy": "none",
+            "lineageTag": "f0204d5c-78cb-4eca-bf6e-17208e9ada04",
+            "formatString": "Long Date"
+          },
+          {
+            "name": "ArrivalDateTime",
+            "dataType": "dateTime",
+            "sourceColumn": "ArrivalDateTime",
+            "summarizeBy": "none",
+            "lineageTag": "6a41f139-f571-4a60-9374-3aa04b5a16a1",
+            "formatString": "Long Date"
+          },
+          {
+            "name": "Price",
+            "dataType": "double",
+            "sourceColumn": "Price",
+            "summarizeBy": "none",
+            "lineageTag": "35497c8c-f6da-4b11-8125-6d480e5888c1",
+            "formatString": "#,0.00"
+          },
+          {
+            "name": "AvailableSeats",
+            "dataType": "int64",
+            "sourceColumn": "AvailableSeats",
+            "summarizeBy": "none",
+            "lineageTag": "6d87047a-7e3d-403a-8449-600edecd07d7",
+            "formatString": "0"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Flights",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "let\n    Source = Csv.Document(File.Contents(FolderPath & \"\\Flights.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),\n    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\n    Typed = Table.TransformColumnTypes(Headers, {{\"FlightID\", Int64.Type}, {\"Airline\", type text}, {\"DepartureAirport\", type text}, {\"ArrivalAirport\", type text}, {\"DepartureDateTime\", type datetime}, {\"ArrivalDateTime\", type datetime}, {\"Price\", type number}, {\"AvailableSeats\", Int64.Type}})\nin\n    Typed"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Hotels",
+        "lineageTag": "9f4bad73-c568-48b4-94f2-5df606125c59",
+        "columns": [
+          {
+            "name": "HotelID",
+            "dataType": "int64",
+            "sourceColumn": "HotelID",
+            "summarizeBy": "none",
+            "lineageTag": "45691414-3a59-4003-ae45-90c7c1e8d6e0",
+            "formatString": "0",
+            "isHidden": true
+          },
+          {
+            "name": "Name",
+            "dataType": "string",
+            "sourceColumn": "Name",
+            "summarizeBy": "none",
+            "lineageTag": "1cae1fbb-fefa-405c-b99d-022990eeabfd"
+          },
+          {
+            "name": "Location",
+            "dataType": "string",
+            "sourceColumn": "Location",
+            "summarizeBy": "none",
+            "lineageTag": "662ce1f7-4787-4ac4-a929-0fa1e324cb4a"
+          },
+          {
+            "name": "CheckInDateTime",
+            "dataType": "dateTime",
+            "sourceColumn": "CheckInDateTime",
+            "summarizeBy": "none",
+            "lineageTag": "29748442-da74-4660-ad65-33feb2c7388e",
+            "formatString": "Long Date"
+          },
+          {
+            "name": "CheckOutDateTime",
+            "dataType": "dateTime",
+            "sourceColumn": "CheckOutDateTime",
+            "summarizeBy": "none",
+            "lineageTag": "88c6bf76-07e2-43a1-b9be-9243ed8b264b",
+            "formatString": "Long Date"
+          },
+          {
+            "name": "PricePerNight",
+            "dataType": "double",
+            "sourceColumn": "PricePerNight",
+            "summarizeBy": "none",
+            "lineageTag": "0cb9fbe2-555c-45b3-8d49-4c91dab8af19",
+            "formatString": "#,0.00"
+          },
+          {
+            "name": "AvailableRooms",
+            "dataType": "int64",
+            "sourceColumn": "AvailableRooms",
+            "summarizeBy": "none",
+            "lineageTag": "047cb2fe-b937-477c-b16c-f29b30437e0c",
+            "formatString": "0"
+          },
+          {
+            "name": "Nights",
+            "dataType": "int64",
+            "sourceColumn": "Nights",
+            "summarizeBy": "none",
+            "lineageTag": "5cb1c006-680f-47d1-8e1c-e1198c719194",
+            "formatString": "0"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Hotels",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "let\n    Source = Csv.Document(File.Contents(FolderPath & \"\\Hotels.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),\n    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\n    Typed = Table.TransformColumnTypes(Headers, {{\"HotelID\", Int64.Type}, {\"Name\", type text}, {\"Location\", type text}, {\"CheckInDateTime\", type datetime}, {\"CheckOutDateTime\", type datetime}, {\"PricePerNight\", type number}, {\"AvailableRooms\", Int64.Type}}),\n    S1 = Table.AddColumn(Typed, \"Nights\", each Duration.Days([CheckOutDateTime] - [CheckInDateTime]), Int64.Type)\nin\n    S1"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Buses",
+        "lineageTag": "23b72809-6c71-4874-84ef-b250f4631359",
+        "columns": [
+          {
+            "name": "BusID",
+            "dataType": "int64",
+            "sourceColumn": "BusID",
+            "summarizeBy": "none",
+            "lineageTag": "4a036f7a-1a09-459f-8a3f-7cd8f62205b4",
+            "formatString": "0",
+            "isHidden": true
+          },
+          {
+            "name": "Operator",
+            "dataType": "string",
+            "sourceColumn": "Operator",
+            "summarizeBy": "none",
+            "lineageTag": "b0125513-9621-4580-bed6-f4df5322d219"
+          },
+          {
+            "name": "DepartureLocation",
+            "dataType": "string",
+            "sourceColumn": "DepartureLocation",
+            "summarizeBy": "none",
+            "lineageTag": "a269fa4a-8785-49b9-8a61-adc6f794814c"
+          },
+          {
+            "name": "ArrivalLocation",
+            "dataType": "string",
+            "sourceColumn": "ArrivalLocation",
+            "summarizeBy": "none",
+            "lineageTag": "781dd23a-35c6-4d03-be4e-098a93aeea01"
+          },
+          {
+            "name": "DepartureDateTime",
+            "dataType": "dateTime",
+            "sourceColumn": "DepartureDateTime",
+            "summarizeBy": "none",
+            "lineageTag": "9865cfad-7ff9-45dd-b901-a9309d2b0046",
+            "formatString": "Long Date"
+          },
+          {
+            "name": "ArrivalDateTime",
+            "dataType": "dateTime",
+            "sourceColumn": "ArrivalDateTime",
+            "summarizeBy": "none",
+            "lineageTag": "0699067d-c2be-4e56-b25d-3b114ea180f8",
+            "formatString": "Long Date"
+          },
+          {
+            "name": "Price",
+            "dataType": "double",
+            "sourceColumn": "Price",
+            "summarizeBy": "none",
+            "lineageTag": "2cbb8d6f-cc30-4aa7-b86c-46f1f1e9746b",
+            "formatString": "#,0.00"
+          },
+          {
+            "name": "AvailableSeats",
+            "dataType": "int64",
+            "sourceColumn": "AvailableSeats",
+            "summarizeBy": "none",
+            "lineageTag": "e9e2cda4-fa48-4d35-aeb4-ad99a450879b",
+            "formatString": "0"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Buses",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "let\n    Source = Csv.Document(File.Contents(FolderPath & \"\\Buses.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),\n    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\n    Typed = Table.TransformColumnTypes(Headers, {{\"BusID\", Int64.Type}, {\"Operator\", type text}, {\"DepartureLocation\", type text}, {\"ArrivalLocation\", type text}, {\"DepartureDateTime\", type datetime}, {\"ArrivalDateTime\", type datetime}, {\"Price\", type number}, {\"AvailableSeats\", Int64.Type}})\nin\n    Typed"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Trains",
+        "lineageTag": "0fcb53f7-8268-4f6d-9539-2c9882f2671c",
+        "columns": [
+          {
+            "name": "TrainID",
+            "dataType": "int64",
+            "sourceColumn": "TrainID",
+            "summarizeBy": "none",
+            "lineageTag": "56eef143-a487-4839-84e1-a41c2ab1d2b6",
+            "formatString": "0",
+            "isHidden": true
+          },
+          {
+            "name": "Operator",
+            "dataType": "string",
+            "sourceColumn": "Operator",
+            "summarizeBy": "none",
+            "lineageTag": "f0dddf15-ce44-421b-8163-126d6913a026"
+          },
+          {
+            "name": "DepartureStation",
+            "dataType": "string",
+            "sourceColumn": "DepartureStation",
+            "summarizeBy": "none",
+            "lineageTag": "9a737ac6-f066-4993-869f-7b07670646e7"
+          },
+          {
+            "name": "ArrivalStation",
+            "dataType": "string",
+            "sourceColumn": "ArrivalStation",
+            "summarizeBy": "none",
+            "lineageTag": "c8d77605-161c-44fa-833e-c04c60195d77"
+          },
+          {
+            "name": "DepartureDateTime",
+            "dataType": "dateTime",
+            "sourceColumn": "DepartureDateTime",
+            "summarizeBy": "none",
+            "lineageTag": "549150a2-fab6-487b-9f7d-cb280f561856",
+            "formatString": "Long Date"
+          },
+          {
+            "name": "ArrivalDateTime",
+            "dataType": "dateTime",
+            "sourceColumn": "ArrivalDateTime",
+            "summarizeBy": "none",
+            "lineageTag": "48d18dc7-8507-4b3c-b1c3-78216212169c",
+            "formatString": "Long Date"
+          },
+          {
+            "name": "Price",
+            "dataType": "double",
+            "sourceColumn": "Price",
+            "summarizeBy": "none",
+            "lineageTag": "56acae8b-3b3c-4add-8d58-7d9bc07be420",
+            "formatString": "#,0.00"
+          },
+          {
+            "name": "AvailableSeats",
+            "dataType": "int64",
+            "sourceColumn": "AvailableSeats",
+            "summarizeBy": "none",
+            "lineageTag": "e85cb7fc-13f4-4ff4-bb81-df54a5b40371",
+            "formatString": "0"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Trains",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "let\n    Source = Csv.Document(File.Contents(FolderPath & \"\\Trains.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),\n    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\n    Typed = Table.TransformColumnTypes(Headers, {{\"TrainID\", Int64.Type}, {\"Operator\", type text}, {\"DepartureStation\", type text}, {\"ArrivalStation\", type text}, {\"DepartureDateTime\", type datetime}, {\"ArrivalDateTime\", type datetime}, {\"Price\", type number}, {\"AvailableSeats\", Int64.Type}})\nin\n    Typed"
+            }
+          }
+        ]
+      },
+      {
+        "name": "CarRentals",
+        "lineageTag": "a018342a-ef5d-4622-8796-1d23e3aab537",
+        "columns": [
+          {
+            "name": "CarRentalID",
+            "dataType": "int64",
+            "sourceColumn": "CarRentalID",
+            "summarizeBy": "none",
+            "lineageTag": "47c1f919-6245-4f62-8143-9587b6a13980",
+            "formatString": "0",
+            "isHidden": true
+          },
+          {
+            "name": "CarType",
+            "dataType": "string",
+            "sourceColumn": "CarType",
+            "summarizeBy": "none",
+            "lineageTag": "4e57ca64-69f4-4a26-bd69-5acf32e140ca"
+          },
+          {
+            "name": "PickupLocation",
+            "dataType": "string",
+            "sourceColumn": "PickupLocation",
+            "summarizeBy": "none",
+            "lineageTag": "74ee67f3-9ddd-404f-a2cb-59d0ab6c284f"
+          },
+          {
+            "name": "DropOffLocation",
+            "dataType": "string",
+            "sourceColumn": "DropOffLocation",
+            "summarizeBy": "none",
+            "lineageTag": "f6a6c437-2d46-408f-a61b-58564b9528e5"
+          },
+          {
+            "name": "PickupDateTime",
+            "dataType": "dateTime",
+            "sourceColumn": "PickupDateTime",
+            "summarizeBy": "none",
+            "lineageTag": "9a8b022c-ed41-4e99-9f96-52cd6e6aa3e7",
+            "formatString": "Long Date"
+          },
+          {
+            "name": "DropOffDateTime",
+            "dataType": "dateTime",
+            "sourceColumn": "DropOffDateTime",
+            "summarizeBy": "none",
+            "lineageTag": "005f8fa1-96a8-420d-b577-bcfdc5bc223e",
+            "formatString": "Long Date"
+          },
+          {
+            "name": "Price",
+            "dataType": "double",
+            "sourceColumn": "Price",
+            "summarizeBy": "none",
+            "lineageTag": "f14102f7-3c9a-4586-9a26-53846b9bcea8",
+            "formatString": "#,0.00"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "CarRentals",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "let\n    Source = Csv.Document(File.Contents(FolderPath & \"\\CarRentals.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),\n    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\n    Typed = Table.TransformColumnTypes(Headers, {{\"CarRentalID\", Int64.Type}, {\"CarType\", type text}, {\"PickupLocation\", type text}, {\"DropOffLocation\", type text}, {\"PickupDateTime\", type datetime}, {\"DropOffDateTime\", type datetime}, {\"Price\", type number}})\nin\n    Typed"
+            }
+          }
+        ]
+      },
+      {
+        "name": "FlightBookings",
+        "lineageTag": "d6162f2b-e92a-4fcd-a7a6-81f8cdb569e1",
+        "columns": [
+          {
+            "name": "FlightBookingID",
+            "dataType": "int64",
+            "sourceColumn": "FlightBookingID",
+            "summarizeBy": "none",
+            "lineageTag": "7840de28-626a-4371-933e-a4d165c1d0f6",
+            "formatString": "0",
+            "isHidden": true
+          },
+          {
+            "name": "BookingID",
+            "dataType": "int64",
+            "sourceColumn": "BookingID",
+            "summarizeBy": "none",
+            "lineageTag": "39a8aed7-dc89-4d31-bb03-ccb18c06d109",
+            "formatString": "0"
+          },
+          {
+            "name": "FlightID",
+            "dataType": "int64",
+            "sourceColumn": "FlightID",
+            "summarizeBy": "none",
+            "lineageTag": "7de90142-8c6d-42ae-a34c-988840e177fd",
+            "formatString": "0",
+            "isHidden": true
+          },
+          {
+            "name": "Passengers",
+            "dataType": "int64",
+            "sourceColumn": "Passengers",
+            "summarizeBy": "none",
+            "lineageTag": "9ba45844-3ab5-4acc-a933-970f89ca13c7",
+            "formatString": "0"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "FlightBookings",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "let\n    Source = Csv.Document(File.Contents(FolderPath & \"\\FlightBookings.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),\n    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\n    Typed = Table.TransformColumnTypes(Headers, {{\"FlightBookingID\", Int64.Type}, {\"BookingID\", Int64.Type}, {\"FlightID\", Int64.Type}, {\"Passengers\", Int64.Type}})\nin\n    Typed"
+            }
+          }
+        ]
+      },
+      {
+        "name": "HotelBookings",
+        "lineageTag": "15f3c3fd-ce3e-4836-909f-851acb7edcdb",
+        "columns": [
+          {
+            "name": "HotelBookingID",
+            "dataType": "int64",
+            "sourceColumn": "HotelBookingID",
+            "summarizeBy": "none",
+            "lineageTag": "9dfb6a8a-c7bf-49e6-9ee5-cc657cf643e9",
+            "formatString": "0",
+            "isHidden": true
+          },
+          {
+            "name": "BookingID",
+            "dataType": "int64",
+            "sourceColumn": "BookingID",
+            "summarizeBy": "none",
+            "lineageTag": "084d22b6-83a2-47ff-bd78-0f27dee77a7b",
+            "formatString": "0"
+          },
+          {
+            "name": "HotelID",
+            "dataType": "int64",
+            "sourceColumn": "HotelID",
+            "summarizeBy": "none",
+            "lineageTag": "2b4d1573-6fcb-494e-84a3-5d5ad857c9f0",
+            "formatString": "0",
+            "isHidden": true
+          },
+          {
+            "name": "NumberOfRooms",
+            "dataType": "int64",
+            "sourceColumn": "NumberOfRooms",
+            "summarizeBy": "none",
+            "lineageTag": "b63a9356-42ca-40eb-a2f7-eff62e923b66",
+            "formatString": "0"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "HotelBookings",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "let\n    Source = Csv.Document(File.Contents(FolderPath & \"\\HotelBookings.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),\n    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\n    Typed = Table.TransformColumnTypes(Headers, {{\"HotelBookingID\", Int64.Type}, {\"BookingID\", Int64.Type}, {\"HotelID\", Int64.Type}, {\"NumberOfRooms\", Int64.Type}})\nin\n    Typed"
+            }
+          }
+        ]
+      },
+      {
+        "name": "BusBookings",
+        "lineageTag": "ee38a346-d637-4694-810f-b5af8847250f",
+        "columns": [
+          {
+            "name": "BusBookingID",
+            "dataType": "int64",
+            "sourceColumn": "BusBookingID",
+            "summarizeBy": "none",
+            "lineageTag": "fd8f385d-f209-406f-a0fd-5973112578c3",
+            "formatString": "0",
+            "isHidden": true
+          },
+          {
+            "name": "BookingID",
+            "dataType": "int64",
+            "sourceColumn": "BookingID",
+            "summarizeBy": "none",
+            "lineageTag": "d14674ef-b664-4286-a9bf-9dd82f4be8de",
+            "formatString": "0"
+          },
+          {
+            "name": "BusID",
+            "dataType": "int64",
+            "sourceColumn": "BusID",
+            "summarizeBy": "none",
+            "lineageTag": "dd32860d-e5d2-4cba-862f-d2ecd64cb565",
+            "formatString": "0",
+            "isHidden": true
+          },
+          {
+            "name": "Passengers",
+            "dataType": "int64",
+            "sourceColumn": "Passengers",
+            "summarizeBy": "none",
+            "lineageTag": "8576073b-31f2-4060-9c1f-0b53a9ade73e",
+            "formatString": "0"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "BusBookings",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "let\n    Source = Csv.Document(File.Contents(FolderPath & \"\\BusBookings.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),\n    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\n    Typed = Table.TransformColumnTypes(Headers, {{\"BusBookingID\", Int64.Type}, {\"BookingID\", Int64.Type}, {\"BusID\", Int64.Type}, {\"Passengers\", Int64.Type}})\nin\n    Typed"
+            }
+          }
+        ]
+      },
+      {
+        "name": "TrainBookings",
+        "lineageTag": "eb4d476a-3a29-4b1e-8341-ab02bbeb53bf",
+        "columns": [
+          {
+            "name": "TrainBookingID",
+            "dataType": "int64",
+            "sourceColumn": "TrainBookingID",
+            "summarizeBy": "none",
+            "lineageTag": "afca2e0f-a5a9-4b52-99fb-74751501f175",
+            "formatString": "0",
+            "isHidden": true
+          },
+          {
+            "name": "BookingID",
+            "dataType": "int64",
+            "sourceColumn": "BookingID",
+            "summarizeBy": "none",
+            "lineageTag": "c648955c-6b6c-414d-bf17-5faaa3be2efb",
+            "formatString": "0"
+          },
+          {
+            "name": "TrainID",
+            "dataType": "int64",
+            "sourceColumn": "TrainID",
+            "summarizeBy": "none",
+            "lineageTag": "0a061082-4258-4598-829c-e712c6b8c874",
+            "formatString": "0",
+            "isHidden": true
+          },
+          {
+            "name": "Passengers",
+            "dataType": "int64",
+            "sourceColumn": "Passengers",
+            "summarizeBy": "none",
+            "lineageTag": "4e69515f-8504-4aa3-bf6e-f28e2eaf57ca",
+            "formatString": "0"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "TrainBookings",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "let\n    Source = Csv.Document(File.Contents(FolderPath & \"\\TrainBookings.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),\n    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\n    Typed = Table.TransformColumnTypes(Headers, {{\"TrainBookingID\", Int64.Type}, {\"BookingID\", Int64.Type}, {\"TrainID\", Int64.Type}, {\"Passengers\", Int64.Type}})\nin\n    Typed"
+            }
+          }
+        ]
+      },
+      {
+        "name": "CarRentalBookings",
+        "lineageTag": "004da0b0-a7aa-4db8-8203-9baaecabe39d",
+        "columns": [
+          {
+            "name": "CarRentalBookingID",
+            "dataType": "int64",
+            "sourceColumn": "CarRentalBookingID",
+            "summarizeBy": "none",
+            "lineageTag": "0596cdf9-b344-4778-89de-4bc947625bf7",
+            "formatString": "0",
+            "isHidden": true
+          },
+          {
+            "name": "BookingID",
+            "dataType": "int64",
+            "sourceColumn": "BookingID",
+            "summarizeBy": "none",
+            "lineageTag": "9a2d4436-78e8-4231-b6dc-db6e8e6905f5",
+            "formatString": "0"
+          },
+          {
+            "name": "CarRentalID",
+            "dataType": "int64",
+            "sourceColumn": "CarRentalID",
+            "summarizeBy": "none",
+            "lineageTag": "22f5c5ee-b9b7-4952-a57b-35cdd15c7db9",
+            "formatString": "0",
+            "isHidden": true
+          }
+        ],
+        "partitions": [
+          {
+            "name": "CarRentalBookings",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "let\n    Source = Csv.Document(File.Contents(FolderPath & \"\\CarRentalBookings.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),\n    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\n    Typed = Table.TransformColumnTypes(Headers, {{\"CarRentalBookingID\", Int64.Type}, {\"BookingID\", Int64.Type}, {\"CarRentalID\", Int64.Type}})\nin\n    Typed"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Payments",
+        "lineageTag": "01d1a522-d9e7-48e6-abad-dae36fb00e3c",
+        "columns": [
+          {
+            "name": "PaymentID",
+            "dataType": "int64",
+            "sourceColumn": "PaymentID",
+            "summarizeBy": "none",
+            "lineageTag": "c8a0dffc-e5d0-4e8a-9eed-60d127a74a71",
+            "formatString": "0",
+            "isHidden": true
+          },
+          {
+            "name": "BookingID",
+            "dataType": "int64",
+            "sourceColumn": "BookingID",
+            "summarizeBy": "none",
+            "lineageTag": "0232b173-a6a2-477a-b935-69cff4409863",
+            "formatString": "0"
+          },
+          {
+            "name": "PaymentType",
+            "dataType": "string",
+            "sourceColumn": "PaymentType",
+            "summarizeBy": "none",
+            "lineageTag": "c4b6d485-b5ef-4673-ab24-e777bf02e108"
+          },
+          {
+            "name": "PaymentDate",
+            "dataType": "dateTime",
+            "sourceColumn": "PaymentDate",
+            "summarizeBy": "none",
+            "lineageTag": "acfe6511-9935-4f5c-9d22-c02ee69b4b55",
+            "formatString": "Long Date"
+          },
+          {
+            "name": "PaymentAmount",
+            "dataType": "double",
+            "sourceColumn": "PaymentAmount",
+            "summarizeBy": "none",
+            "lineageTag": "87d2ef12-0cf2-4dc5-8988-b5a878cba733",
+            "formatString": "#,0.00"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Payments",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "let\n    Source = Csv.Document(File.Contents(FolderPath & \"\\Payments.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),\n    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\n    Typed = Table.TransformColumnTypes(Headers, {{\"PaymentID\", Int64.Type}, {\"BookingID\", Int64.Type}, {\"PaymentType\", type text}, {\"PaymentDate\", type datetime}, {\"PaymentAmount\", type number}})\nin\n    Typed"
+            }
+          }
+        ]
+      },
+      {
+        "name": "DiscountCoupons",
+        "lineageTag": "299dad31-9d41-4ecb-9ae5-e6b9c3a3dd3c",
+        "columns": [
+          {
+            "name": "CouponID",
+            "dataType": "int64",
+            "sourceColumn": "CouponID",
+            "summarizeBy": "none",
+            "lineageTag": "0494877c-706a-433d-971f-132d52783097",
+            "formatString": "0",
+            "isHidden": true
+          },
+          {
+            "name": "Code",
+            "dataType": "string",
+            "sourceColumn": "Code",
+            "summarizeBy": "none",
+            "lineageTag": "cdaa52d3-31f2-4301-a462-2d06df70d009"
+          },
+          {
+            "name": "DiscountPercent",
+            "dataType": "int64",
+            "sourceColumn": "DiscountPercent",
+            "summarizeBy": "none",
+            "lineageTag": "807044e0-cc0e-41a9-9a2c-7db8e835ac08",
+            "formatString": "0"
+          },
+          {
+            "name": "MinimumOrderValue",
+            "dataType": "int64",
+            "sourceColumn": "MinimumOrderValue",
+            "summarizeBy": "none",
+            "lineageTag": "ee54399a-9c0f-4e7a-8796-186101e4dddc",
+            "formatString": "0"
+          },
+          {
+            "name": "ExpiryDate",
+            "dataType": "dateTime",
+            "sourceColumn": "ExpiryDate",
+            "summarizeBy": "none",
+            "lineageTag": "eb70e5ad-3252-4cd2-91ef-33d69cd9775b",
+            "formatString": "Long Date"
+          },
+          {
+            "name": "BookingID",
+            "dataType": "int64",
+            "sourceColumn": "BookingID",
+            "summarizeBy": "none",
+            "lineageTag": "98320f5c-de07-4616-9bc7-6333f10a70b7",
+            "formatString": "0"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DiscountCoupons",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "let\n    Source = Csv.Document(File.Contents(FolderPath & \"\\DiscountCoupons.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),\n    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\n    Typed = Table.TransformColumnTypes(Headers, {{\"CouponID\", Int64.Type}, {\"Code\", type text}, {\"DiscountPercent\", Int64.Type}, {\"MinimumOrderValue\", Int64.Type}, {\"ExpiryDate\", type datetime}, {\"BookingID\", Int64.Type}})\nin\n    Typed"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Reviews",
+        "lineageTag": "f1265bdc-4ae0-443c-8f0c-24782e5a8387",
+        "columns": [
+          {
+            "name": "ReviewID",
+            "dataType": "int64",
+            "sourceColumn": "ReviewID",
+            "summarizeBy": "none",
+            "lineageTag": "713b8ede-c76a-4118-9030-a5a335b0dd9e",
+            "formatString": "0",
+            "isHidden": true
+          },
+          {
+            "name": "UserID",
+            "dataType": "int64",
+            "sourceColumn": "UserID",
+            "summarizeBy": "none",
+            "lineageTag": "638aa770-1335-4a10-8692-69175fd57e40",
+            "formatString": "0"
+          },
+          {
+            "name": "BookingID",
+            "dataType": "int64",
+            "sourceColumn": "BookingID",
+            "summarizeBy": "none",
+            "lineageTag": "ca0ba6ac-4590-4509-86e5-1fd8ffc2b1ed",
+            "formatString": "0"
+          },
+          {
+            "name": "Rating",
+            "dataType": "int64",
+            "sourceColumn": "Rating",
+            "summarizeBy": "none",
+            "lineageTag": "50b9552a-29dd-4b7a-8fee-c372c5943e67",
+            "formatString": "0"
+          },
+          {
+            "name": "Comment",
+            "dataType": "string",
+            "sourceColumn": "Comment",
+            "summarizeBy": "none",
+            "lineageTag": "04ae5721-4d35-46ff-9c4d-a3c5d021096e"
+          },
+          {
+            "name": "ReviewDate",
+            "dataType": "dateTime",
+            "sourceColumn": "ReviewDate",
+            "summarizeBy": "none",
+            "lineageTag": "15496fcb-5f63-4c3a-9fb9-35d357ab2264",
+            "formatString": "Long Date"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Reviews",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "let\n    Source = Csv.Document(File.Contents(FolderPath & \"\\Reviews.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),\n    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\n    Typed = Table.TransformColumnTypes(Headers, {{\"ReviewID\", Int64.Type}, {\"UserID\", Int64.Type}, {\"BookingID\", Int64.Type}, {\"Rating\", Int64.Type}, {\"Comment\", type text}, {\"ReviewDate\", type datetime}})\nin\n    Typed"
+            }
+          }
+        ]
+      },
+      {
+        "name": "DateTable",
+        "lineageTag": "acad6491-9463-4944-807b-2b9d34f2c6a5",
+        "columns": [
+          {
+            "name": "Date",
+            "dataType": "dateTime",
+            "sourceColumn": "Date",
+            "summarizeBy": "none",
+            "lineageTag": "6f026c6e-95d7-4f36-ad77-25489e083927",
+            "formatString": "Long Date",
+            "isKey": true
+          },
+          {
+            "name": "Year",
+            "dataType": "int64",
+            "sourceColumn": "Year",
+            "summarizeBy": "none",
+            "lineageTag": "7ac12607-8d2b-4abe-95df-de858cdaea99",
+            "formatString": "0"
+          },
+          {
+            "name": "Quarter",
+            "dataType": "string",
+            "sourceColumn": "Quarter",
+            "summarizeBy": "none",
+            "lineageTag": "3e218f6a-53d0-44ae-9ac9-5f80d12e2200"
+          },
+          {
+            "name": "Year Quarter",
+            "dataType": "string",
+            "sourceColumn": "Year Quarter",
+            "summarizeBy": "none",
+            "lineageTag": "a41b8787-f5fd-4f08-8603-f7dcc633fb41",
+            "sortByColumn": "Year Quarter Sort"
+          },
+          {
+            "name": "Year Quarter Sort",
+            "dataType": "int64",
+            "sourceColumn": "Year Quarter Sort",
+            "summarizeBy": "none",
+            "lineageTag": "4a2ae423-89ad-4fd7-b5c3-dc1b6540ce2e",
+            "formatString": "0"
+          },
+          {
+            "name": "Month Number",
+            "dataType": "int64",
+            "sourceColumn": "Month Number",
+            "summarizeBy": "none",
+            "lineageTag": "1395883e-4def-462c-bdcd-ed11c4dee8fd",
+            "formatString": "0"
+          },
+          {
+            "name": "Month",
+            "dataType": "string",
+            "sourceColumn": "Month",
+            "summarizeBy": "none",
+            "lineageTag": "0b93e98f-7da3-4448-9bd8-623e800872c3",
+            "sortByColumn": "Month Number"
+          },
+          {
+            "name": "Year Month",
+            "dataType": "string",
+            "sourceColumn": "Year Month",
+            "summarizeBy": "none",
+            "lineageTag": "f28364cc-4e13-479f-8846-478df40f5c7e",
+            "sortByColumn": "Year Month Sort"
+          },
+          {
+            "name": "Year Month Sort",
+            "dataType": "int64",
+            "sourceColumn": "Year Month Sort",
+            "summarizeBy": "none",
+            "lineageTag": "c2fb8e76-f3e9-419f-90a6-026ba82e6ff5",
+            "formatString": "0"
+          },
+          {
+            "name": "Weekday",
+            "dataType": "string",
+            "sourceColumn": "Weekday",
+            "summarizeBy": "none",
+            "lineageTag": "67eee630-ae46-4ecb-b41e-f4c1af945061",
+            "sortByColumn": "Weekday Number"
+          },
+          {
+            "name": "Weekday Number",
+            "dataType": "int64",
+            "sourceColumn": "Weekday Number",
+            "summarizeBy": "none",
+            "lineageTag": "3ed34e24-1655-4ac2-b03e-bbbce071366a",
+            "formatString": "0"
+          },
+          {
+            "name": "Is Weekend",
+            "dataType": "string",
+            "sourceColumn": "Is Weekend",
+            "summarizeBy": "none",
+            "lineageTag": "a310ff87-02aa-4b80-99b2-ccffe512d2f6"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DateTable",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "let\n    Source = Csv.Document(File.Contents(FolderPath & \"\\DateTable.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),\n    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\n    Typed = Table.TransformColumnTypes(Headers, {{\"Date\", type datetime}, {\"Year\", Int64.Type}, {\"Quarter\", type text}, {\"Year Quarter\", type text}, {\"Year Quarter Sort\", Int64.Type}, {\"Month Number\", Int64.Type}, {\"Month\", type text}, {\"Year Month\", type text}, {\"Year Month Sort\", Int64.Type}, {\"Weekday\", type text}, {\"Weekday Number\", Int64.Type}, {\"Is Weekend\", type text}})\nin\n    Typed"
+            }
+          }
+        ],
+        "dataCategory": "Time"
+      },
+      {
+        "name": "_Measures",
+        "lineageTag": "22152971-3dd9-40ce-a798-f9014ba5d8c0",
+        "columns": [
+          {
+            "name": "Placeholder",
+            "dataType": "string",
+            "sourceColumn": "Placeholder",
+            "isHidden": true,
+            "summarizeBy": "none",
+            "lineageTag": "165ea916-52b4-494d-9d6e-6fe449389589"
+          }
+        ],
+        "measures": [
+          {
+            "name": "Total Bookings",
+            "expression": "DISTINCTCOUNT ( Bookings[BookingID] )",
+            "formatString": "#,0",
+            "lineageTag": "1c0e5508-adc8-4690-bf5a-01842fdab65a",
+            "displayFolder": "01 Volume"
+          },
+          {
+            "name": "Booking Value",
+            "expression": "SUM ( Bookings[TotalPrice] )",
+            "formatString": "\"₹\"#,0",
+            "lineageTag": "dc2dbe47-8114-4612-a55d-7160fe462d05",
+            "displayFolder": "01 Volume"
+          },
+          {
+            "name": "Avg Booking Value",
+            "expression": "DIVIDE ( [Booking Value], [Total Bookings] )",
+            "formatString": "\"₹\"#,0",
+            "lineageTag": "d12f194b-0564-4b5d-b5fb-955c99b1a00e",
+            "displayFolder": "01 Volume"
+          },
+          {
+            "name": "Median Booking Value",
+            "expression": "MEDIANX ( Bookings, Bookings[TotalPrice] )",
+            "formatString": "\"₹\"#,0",
+            "lineageTag": "68c8609c-6811-4073-89d5-029656156fd6",
+            "displayFolder": "01 Volume"
+          },
+          {
+            "name": "Passengers Carried",
+            "expression": "SUM ( FlightBookings[Passengers] ) + SUM ( BusBookings[Passengers] ) + SUM ( TrainBookings[Passengers] )",
+            "formatString": "#,0",
+            "lineageTag": "9480443c-7e3b-4400-a102-b7c607970e54",
+            "displayFolder": "01 Volume"
+          },
+          {
+            "name": "Rooms Booked",
+            "expression": "SUM ( HotelBookings[NumberOfRooms] )",
+            "formatString": "#,0",
+            "lineageTag": "1753ecc3-90a7-427c-850c-99525e62127d",
+            "displayFolder": "01 Volume"
+          },
+          {
+            "name": "Gross Revenue",
+            "expression": "SUM ( Payments[PaymentAmount] )",
+            "formatString": "\"₹\"#,0",
+            "lineageTag": "feace0be-8e80-42ed-82e4-1902be3a684d",
+            "displayFolder": "02 Revenue"
+          },
+          {
+            "name": "Refunded Revenue",
+            "expression": "CALCULATE ( [Gross Revenue], Bookings[Status] = \"Refunded\" )",
+            "formatString": "\"₹\"#,0",
+            "lineageTag": "fd0c3e53-0c03-41a7-a214-ad3d43c8f902",
+            "displayFolder": "02 Revenue"
+          },
+          {
+            "name": "Net Revenue",
+            "expression": "[Gross Revenue] - [Refunded Revenue]",
+            "formatString": "\"₹\"#,0",
+            "lineageTag": "a2adccd2-5c53-4695-bdbe-644a35bad75c",
+            "displayFolder": "02 Revenue"
+          },
+          {
+            "name": "Refund Leakage %",
+            "expression": "DIVIDE ( [Refunded Revenue], [Gross Revenue] )",
+            "formatString": "0.0%",
+            "lineageTag": "4edc1a38-adca-4c3d-9992-ff5cbd16ce77",
+            "displayFolder": "02 Revenue"
+          },
+          {
+            "name": "Revenue Realisation %",
+            "expression": "DIVIDE ( [Net Revenue], [Booking Value] )",
+            "formatString": "0.0%",
+            "lineageTag": "84a482ab-e4c5-4d29-a9e3-eecd95a030cb",
+            "displayFolder": "02 Revenue"
+          },
+          {
+            "name": "Revenue per Booking",
+            "expression": "DIVIDE ( [Net Revenue], [Total Bookings] )",
+            "formatString": "\"₹\"#,0",
+            "lineageTag": "bfd6b61e-c1de-4489-a442-29bafaece1e4",
+            "displayFolder": "02 Revenue"
+          },
+          {
+            "name": "Revenue per Active User",
+            "expression": "DIVIDE ( [Net Revenue], DISTINCTCOUNT ( Bookings[UserID] ) )",
+            "formatString": "\"₹\"#,0",
+            "lineageTag": "98f85b29-6c5b-45e3-997b-a3afa149c117",
+            "displayFolder": "02 Revenue"
+          },
+          {
+            "name": "Completed Bookings",
+            "expression": "CALCULATE ( [Total Bookings], Bookings[Status] = \"Completed\" )",
+            "formatString": "#,0",
+            "lineageTag": "02d99f89-e9bb-4aee-ae94-46ffb323faa1",
+            "displayFolder": "03 Status"
+          },
+          {
+            "name": "Confirmed Bookings",
+            "expression": "CALCULATE ( [Total Bookings], Bookings[Status] = \"Confirmed\" )",
+            "formatString": "#,0",
+            "lineageTag": "1c91488a-94f4-4f83-8ebb-d74db8e556c8",
+            "displayFolder": "03 Status"
+          },
+          {
+            "name": "Pending Bookings",
+            "expression": "CALCULATE ( [Total Bookings], Bookings[Status] = \"Pending\" )",
+            "formatString": "#,0",
+            "lineageTag": "441caed6-9c12-4283-9760-7efd4f4d097e",
+            "displayFolder": "03 Status"
+          },
+          {
+            "name": "Cancelled Bookings",
+            "expression": "CALCULATE ( [Total Bookings], Bookings[Status] = \"Cancelled\" )",
+            "formatString": "#,0",
+            "lineageTag": "3ec64109-5eb8-447f-ab5a-822f06cf8a60",
+            "displayFolder": "03 Status"
+          },
+          {
+            "name": "Refunded Bookings",
+            "expression": "CALCULATE ( [Total Bookings], Bookings[Status] = \"Refunded\" )",
+            "formatString": "#,0",
+            "lineageTag": "fef272a1-3931-4104-abd8-d96a23fe5c15",
+            "displayFolder": "03 Status"
+          },
+          {
+            "name": "Cancellation Rate",
+            "expression": "DIVIDE ( [Cancelled Bookings], [Total Bookings] )",
+            "formatString": "0.0%",
+            "lineageTag": "a5334274-81cb-448b-951a-3ae7dde3bcfd",
+            "displayFolder": "03 Status"
+          },
+          {
+            "name": "Refund Rate",
+            "expression": "DIVIDE ( [Refunded Bookings], [Total Bookings] )",
+            "formatString": "0.0%",
+            "lineageTag": "87c52e08-13bd-4c63-b645-821ecfb4d9f0",
+            "displayFolder": "03 Status"
+          },
+          {
+            "name": "Failed Booking Rate",
+            "expression": "DIVIDE ( [Cancelled Bookings] + [Refunded Bookings], [Total Bookings] )",
+            "formatString": "0.0%",
+            "lineageTag": "6c4a35e6-969b-4f19-9411-a769f487f41d",
+            "displayFolder": "03 Status"
+          },
+          {
+            "name": "Pending Rate",
+            "expression": "DIVIDE ( [Pending Bookings], [Total Bookings] )",
+            "formatString": "0.0%",
+            "lineageTag": "6e293ef4-cc8f-45f2-8ade-91d0cb2f7e35",
+            "displayFolder": "03 Status"
+          },
+          {
+            "name": "Value at Risk",
+            "expression": "CALCULATE ( [Booking Value], Bookings[Status] IN { \"Pending\", \"Cancelled\" } )",
+            "formatString": "\"₹\"#,0",
+            "lineageTag": "b2d6e327-9098-4172-8192-37578eece305",
+            "displayFolder": "03 Status"
+          },
+          {
+            "name": "Total Users",
+            "expression": "DISTINCTCOUNT ( Users[UserID] )",
+            "formatString": "#,0",
+            "lineageTag": "be6dd6f4-1d0d-4868-9cef-2abff4962a02",
+            "displayFolder": "04 Customers"
+          },
+          {
+            "name": "Active Users",
+            "expression": "DISTINCTCOUNT ( Bookings[UserID] )",
+            "formatString": "#,0",
+            "lineageTag": "76185ab3-7846-44df-ade4-e54c24aba400",
+            "displayFolder": "04 Customers"
+          },
+          {
+            "name": "Activation Rate",
+            "expression": "DIVIDE ( [Active Users], [Total Users] )",
+            "formatString": "0.0%",
+            "lineageTag": "743cb99c-f0a6-4298-86fe-c994586d4b05",
+            "displayFolder": "04 Customers"
+          },
+          {
+            "name": "Bookings per Active User",
+            "expression": "DIVIDE ( [Total Bookings], [Active Users] )",
+            "formatString": "#,0.00",
+            "lineageTag": "2ccf8708-9734-4611-9c78-5aad35011e7f",
+            "displayFolder": "04 Customers"
+          },
+          {
+            "name": "Repeat Users",
+            "expression": "COUNTROWS ( FILTER ( VALUES ( Bookings[UserID] ), CALCULATE ( COUNTROWS ( Bookings ) ) > 1 ) )",
+            "formatString": "#,0",
+            "lineageTag": "6166cbe5-d354-4e74-9957-464b21fb2d17",
+            "displayFolder": "04 Customers"
+          },
+          {
+            "name": "Repeat Rate",
+            "expression": "DIVIDE ( [Repeat Users], [Active Users] )",
+            "formatString": "0.0%",
+            "lineageTag": "a43402a7-6a82-44e8-a365-257413478235",
+            "displayFolder": "04 Customers"
+          },
+          {
+            "name": "One-Time Users",
+            "expression": "[Active Users] - [Repeat Users]",
+            "formatString": "#,0",
+            "lineageTag": "fd829bae-aceb-4547-b8ae-d23de9b97a23",
+            "displayFolder": "04 Customers"
+          },
+          {
+            "name": "Customer Lifetime Value",
+            "expression": "DIVIDE ( [Net Revenue], [Active Users] )",
+            "formatString": "\"₹\"#,0",
+            "lineageTag": "57bc9485-d7f0-41d8-b903-a452a2cf4975",
+            "displayFolder": "04 Customers"
+          },
+          {
+            "name": "Avg Days To First Booking",
+            "expression": "AVERAGEX ( FILTER ( VALUES ( Users[UserID] ), NOT ISBLANK ( CALCULATE ( COUNTROWS ( Bookings ) ) ) ), VAR FirstBooking = CALCULATE ( MIN ( Bookings[BookingDateTime] ) ) VAR RegDate = CALCULATE ( MIN ( Users[RegistrationDate] ) ) RETURN DATEDIFF ( RegDate, FirstBooking, DAY ) )",
+            "formatString": "#,0",
+            "lineageTag": "8d0a6565-6d7c-4a8d-b168-34e047bb27b9",
+            "displayFolder": "04 Customers"
+          },
+          {
+            "name": "New Customers",
+            "expression": "COUNTROWS ( FILTER ( VALUES ( Bookings[UserID] ), VAR FirstEver = CALCULATE ( MIN ( Bookings[BookingDate] ), ALL ( DateTable ) ) RETURN FirstEver >= MIN ( DateTable[Date] ) && FirstEver <= MAX ( DateTable[Date] ) ) )",
+            "formatString": "#,0",
+            "lineageTag": "3e654204-bea5-4b1a-b95b-f7339829ab35",
+            "displayFolder": "04 Customers"
+          },
+          {
+            "name": "Returning Customers",
+            "expression": "[Active Users] - [New Customers]",
+            "formatString": "#,0",
+            "lineageTag": "9fe7e6c1-9a35-42b9-8332-ce7c427f300e",
+            "displayFolder": "04 Customers"
+          },
+          {
+            "name": "Avg Rating",
+            "expression": "AVERAGE ( Reviews[Rating] )",
+            "formatString": "#,0.00",
+            "lineageTag": "b3e96e45-0ec4-4013-891e-f8563e39e9ee",
+            "displayFolder": "05 Reviews"
+          },
+          {
+            "name": "Review Count",
+            "expression": "COUNTROWS ( Reviews )",
+            "formatString": "#,0",
+            "lineageTag": "8d5c854e-6792-4292-bcb7-fc92a933287c",
+            "displayFolder": "05 Reviews"
+          },
+          {
+            "name": "Review Coverage",
+            "expression": "DIVIDE ( DISTINCTCOUNT ( Reviews[BookingID] ), [Total Bookings] )",
+            "formatString": "0.0%",
+            "lineageTag": "4ddd5cb1-46e9-46fa-8f06-7c548f92063a",
+            "displayFolder": "05 Reviews"
+          },
+          {
+            "name": "Promoters",
+            "expression": "CALCULATE ( [Review Count], Reviews[Rating] >= 4 )",
+            "formatString": "#,0",
+            "lineageTag": "7a74ae7a-568f-4892-b6c0-52b4c490beb2",
+            "displayFolder": "05 Reviews"
+          },
+          {
+            "name": "Passives",
+            "expression": "CALCULATE ( [Review Count], Reviews[Rating] = 3 )",
+            "formatString": "#,0",
+            "lineageTag": "2c6ab046-b714-4703-a0cd-964f5fa66c6b",
+            "displayFolder": "05 Reviews"
+          },
+          {
+            "name": "Detractors",
+            "expression": "CALCULATE ( [Review Count], Reviews[Rating] <= 2 )",
+            "formatString": "#,0",
+            "lineageTag": "541cd68b-6ee9-4ccc-8bdb-ac9982e1527f",
+            "displayFolder": "05 Reviews"
+          },
+          {
+            "name": "Promoter Share",
+            "expression": "DIVIDE ( [Promoters], [Review Count] )",
+            "formatString": "0.0%",
+            "lineageTag": "3e93dbb7-6a81-4b6a-aa40-b59ec1b1ddea",
+            "displayFolder": "05 Reviews"
+          },
+          {
+            "name": "Satisfaction Score",
+            "expression": "DIVIDE ( [Promoters] - [Detractors], [Review Count] ) * 100",
+            "formatString": "#,0",
+            "lineageTag": "7032610c-7144-40da-abcf-fc889d2ae299",
+            "displayFolder": "05 Reviews"
+          },
+          {
+            "name": "Rating vs Average",
+            "expression": "[Avg Rating] - CALCULATE ( [Avg Rating], ALL ( Bookings[ServiceType] ) )",
+            "formatString": "#,0.00",
+            "lineageTag": "21522f3d-7239-4940-b598-5990ae4cb314",
+            "displayFolder": "05 Reviews"
+          },
+          {
+            "name": "Coupons Redeemed",
+            "expression": "DISTINCTCOUNT ( DiscountCoupons[BookingID] )",
+            "formatString": "#,0",
+            "lineageTag": "50e5b131-adbd-407b-8d9b-45e9d1483953",
+            "displayFolder": "06 Coupons"
+          },
+          {
+            "name": "Coupon Redemption Rate",
+            "expression": "DIVIDE ( [Coupons Redeemed], [Total Bookings] )",
+            "formatString": "0.0%",
+            "lineageTag": "beb57413-a684-423e-83fc-13fe0d8af131",
+            "displayFolder": "06 Coupons"
+          },
+          {
+            "name": "Avg Discount %",
+            "expression": "AVERAGE ( DiscountCoupons[DiscountPercent] ) / 100",
+            "formatString": "0.0%",
+            "lineageTag": "250fbac1-572d-4ca9-b82b-4ec15527dbcd",
+            "displayFolder": "06 Coupons"
+          },
+          {
+            "name": "Estimated Discount Value",
+            "expression": "SUMX ( DiscountCoupons, RELATED ( Bookings[TotalPrice] ) * DiscountCoupons[DiscountPercent] / 100 )",
+            "formatString": "\"₹\"#,0",
+            "lineageTag": "87f42d8f-6e56-4890-ae3b-0e0be13e8115",
+            "displayFolder": "06 Coupons"
+          },
+          {
+            "name": "Avg Value with Coupon",
+            "expression": "CALCULATE ( [Avg Booking Value], FILTER ( Bookings, NOT ISBLANK ( CALCULATE ( COUNTROWS ( DiscountCoupons ) ) ) ) )",
+            "formatString": "\"₹\"#,0",
+            "lineageTag": "fcff42d6-bd5c-414b-91bb-a3db18097877",
+            "displayFolder": "06 Coupons"
+          },
+          {
+            "name": "Avg Value without Coupon",
+            "expression": "CALCULATE ( [Avg Booking Value], FILTER ( Bookings, ISBLANK ( CALCULATE ( COUNTROWS ( DiscountCoupons ) ) ) ) )",
+            "formatString": "\"₹\"#,0",
+            "lineageTag": "5428ae93-96fd-42a0-9f9d-f7e37bb65298",
+            "displayFolder": "06 Coupons"
+          },
+          {
+            "name": "Coupon Basket Lift %",
+            "expression": "DIVIDE ( [Avg Value with Coupon] - [Avg Value without Coupon], [Avg Value without Coupon] )",
+            "formatString": "0.0%",
+            "lineageTag": "40ac393d-5123-4d7f-9659-da7353315bbd",
+            "displayFolder": "06 Coupons"
+          },
+          {
+            "name": "Net Revenue LY",
+            "expression": "CALCULATE ( [Net Revenue], SAMEPERIODLASTYEAR ( DateTable[Date] ) )",
+            "formatString": "\"₹\"#,0",
+            "lineageTag": "e80c6dc0-a9ae-465d-8077-b0b178edb566",
+            "displayFolder": "07 Time"
+          },
+          {
+            "name": "Revenue YoY %",
+            "expression": "DIVIDE ( [Net Revenue] - [Net Revenue LY], [Net Revenue LY] )",
+            "formatString": "0.0%",
+            "lineageTag": "451d636c-ee34-412b-b6bf-05c6312bd84d",
+            "displayFolder": "07 Time"
+          },
+          {
+            "name": "Bookings LY",
+            "expression": "CALCULATE ( [Total Bookings], SAMEPERIODLASTYEAR ( DateTable[Date] ) )",
+            "formatString": "#,0",
+            "lineageTag": "c3f8dc41-70c3-433a-a8db-48c8e364fe06",
+            "displayFolder": "07 Time"
+          },
+          {
+            "name": "Bookings YoY %",
+            "expression": "DIVIDE ( [Total Bookings] - [Bookings LY], [Bookings LY] )",
+            "formatString": "0.0%",
+            "lineageTag": "246e9489-9997-42cf-9b37-810c02ba2a51",
+            "displayFolder": "07 Time"
+          },
+          {
+            "name": "Revenue YTD",
+            "expression": "TOTALYTD ( [Net Revenue], DateTable[Date] )",
+            "formatString": "\"₹\"#,0",
+            "lineageTag": "a7d44b0b-1816-423e-bda0-cdb80b0e81e2",
+            "displayFolder": "07 Time"
+          },
+          {
+            "name": "Revenue MTD",
+            "expression": "TOTALMTD ( [Net Revenue], DateTable[Date] )",
+            "formatString": "\"₹\"#,0",
+            "lineageTag": "b4d1a0ac-547b-452f-b81c-5a439e451d09",
+            "displayFolder": "07 Time"
+          },
+          {
+            "name": "Revenue YTD LY",
+            "expression": "CALCULATE ( [Revenue YTD], SAMEPERIODLASTYEAR ( DateTable[Date] ) )",
+            "formatString": "\"₹\"#,0",
+            "lineageTag": "f18859bd-2ae8-4086-aa1c-a3a346f58dfd",
+            "displayFolder": "07 Time"
+          },
+          {
+            "name": "Revenue Rolling 3M",
+            "expression": "CALCULATE ( [Net Revenue], DATESINPERIOD ( DateTable[Date], MAX ( DateTable[Date] ), -3, MONTH ) )",
+            "formatString": "\"₹\"#,0",
+            "lineageTag": "d1b03f17-4af8-4cdb-9cd5-59f529eb82bb",
+            "displayFolder": "07 Time"
+          },
+          {
+            "name": "Revenue 3M Moving Avg",
+            "expression": "DIVIDE ( [Revenue Rolling 3M], 3 )",
+            "formatString": "\"₹\"#,0",
+            "lineageTag": "872e89fe-c806-4487-b929-4b257a618330",
+            "displayFolder": "07 Time"
+          },
+          {
+            "name": "Revenue Share of Total",
+            "expression": "DIVIDE ( [Net Revenue], CALCULATE ( [Net Revenue], ALLSELECTED ( Bookings[ServiceType] ) ) )",
+            "formatString": "0.0%",
+            "lineageTag": "b5449379-0022-486c-875e-789e79cc92f1",
+            "displayFolder": "08 Mix"
+          },
+          {
+            "name": "Booking Share of Total",
+            "expression": "DIVIDE ( [Total Bookings], CALCULATE ( [Total Bookings], ALLSELECTED ( Bookings[ServiceType] ) ) )",
+            "formatString": "0.0%",
+            "lineageTag": "f3bb2949-0e8e-4716-b075-71531ca814af",
+            "displayFolder": "08 Mix"
+          },
+          {
+            "name": "Service Rank by Revenue",
+            "expression": "RANKX ( ALLSELECTED ( Bookings[ServiceType] ), [Net Revenue],, DESC, DENSE )",
+            "formatString": "#,0",
+            "lineageTag": "b49d068d-e04e-4822-b96d-962bdddf82d3",
+            "displayFolder": "08 Mix"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "_Measures",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "let\n    Source = #table({\"Placeholder\"}, {}),\n    Typed = Table.TransformColumnTypes(Source, {{\"Placeholder\", type text}})\nin\n    Typed"
+            }
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "fa4fc0d9-b28b-4763-97df-0739f45686df",
+        "fromTable": "Bookings",
+        "fromColumn": "UserID",
+        "toTable": "Users",
+        "toColumn": "UserID"
+      },
+      {
+        "name": "6ecca78f-de0c-4525-93bc-5c7c0ad7eac9",
+        "fromTable": "FlightBookings",
+        "fromColumn": "BookingID",
+        "toTable": "Bookings",
+        "toColumn": "BookingID"
+      },
+      {
+        "name": "ad269505-65bd-4cf9-b8b1-8229b09d2f18",
+        "fromTable": "FlightBookings",
+        "fromColumn": "FlightID",
+        "toTable": "Flights",
+        "toColumn": "FlightID"
+      },
+      {
+        "name": "3d4d6544-4ef1-4a4d-9bbd-d23efcb87427",
+        "fromTable": "HotelBookings",
+        "fromColumn": "BookingID",
+        "toTable": "Bookings",
+        "toColumn": "BookingID"
+      },
+      {
+        "name": "3cfec5b8-22a7-4ff3-b72f-9f05d0d8ad61",
+        "fromTable": "HotelBookings",
+        "fromColumn": "HotelID",
+        "toTable": "Hotels",
+        "toColumn": "HotelID"
+      },
+      {
+        "name": "8d44749b-4079-4a15-920b-a432c233893a",
+        "fromTable": "BusBookings",
+        "fromColumn": "BookingID",
+        "toTable": "Bookings",
+        "toColumn": "BookingID"
+      },
+      {
+        "name": "6162ada5-34e0-44b8-8f6f-3de1e8732d50",
+        "fromTable": "BusBookings",
+        "fromColumn": "BusID",
+        "toTable": "Buses",
+        "toColumn": "BusID"
+      },
+      {
+        "name": "705e5886-2c97-40fc-aa3c-bdd79d4a27d6",
+        "fromTable": "TrainBookings",
+        "fromColumn": "BookingID",
+        "toTable": "Bookings",
+        "toColumn": "BookingID"
+      },
+      {
+        "name": "feb27906-7d4c-41a5-95a3-7be841565d46",
+        "fromTable": "TrainBookings",
+        "fromColumn": "TrainID",
+        "toTable": "Trains",
+        "toColumn": "TrainID"
+      },
+      {
+        "name": "631e99c3-125a-4a7a-b437-1964e2511263",
+        "fromTable": "CarRentalBookings",
+        "fromColumn": "BookingID",
+        "toTable": "Bookings",
+        "toColumn": "BookingID"
+      },
+      {
+        "name": "cf689753-d960-47ad-ae4c-eb89bb48f8d6",
+        "fromTable": "CarRentalBookings",
+        "fromColumn": "CarRentalID",
+        "toTable": "CarRentals",
+        "toColumn": "CarRentalID"
+      },
+      {
+        "name": "4d1a607e-13ca-435b-abe3-b2a387932fd1",
+        "fromTable": "Payments",
+        "fromColumn": "BookingID",
+        "toTable": "Bookings",
+        "toColumn": "BookingID"
+      },
+      {
+        "name": "a0560ac0-3e54-4676-8f08-a70391ae3abc",
+        "fromTable": "DiscountCoupons",
+        "fromColumn": "BookingID",
+        "toTable": "Bookings",
+        "toColumn": "BookingID"
+      },
+      {
+        "name": "8bf59f34-00e5-4842-a844-dd4f790f5ee7",
+        "fromTable": "Reviews",
+        "fromColumn": "BookingID",
+        "toTable": "Bookings",
+        "toColumn": "BookingID"
+      },
+      {
+        "name": "a0f57ec7-d84b-4288-89ff-6525b32aaab5",
+        "fromTable": "Reviews",
+        "fromColumn": "UserID",
+        "toTable": "Users",
+        "toColumn": "UserID",
+        "isActive": false
+      },
+      {
+        "name": "63e5ce75-58cd-4614-a9fa-5383672b387d",
+        "fromTable": "Bookings",
+        "fromColumn": "BookingDate",
+        "toTable": "DateTable",
+        "toColumn": "Date"
+      }
+    ],
+    "expressions": [
+      {
+        "name": "FolderPath",
+        "kind": "m",
+        "expression": "\"C:\\MakeMyTripData\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]",
+        "lineageTag": "3dc56498-5361-4520-9346-de079353728d",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Text"
+          }
+        ]
+      }
+    ],
+    "annotations": [
+      {
+        "name": "__PBI_TimeIntelligenceEnabled",
+        "value": "0"
+      },
+      {
+        "name": "PBIDesktopVersion",
+        "value": "2.130.0.0"
+      }
+    ]
+  }
+}

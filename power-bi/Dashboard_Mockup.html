@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MakeMyTrip — Power BI Report Mockup</title>
+<style>
+  :root{
+    --navy:#123A5F; --navy-deep:#0E2E4B; --red:#E8453C; --teal:#1F9C8C;
+    --amber:#E8A33D; --purple:#8B5E9C; --slate:#6B7A8C;
+    --canvas:#F2F4F7; --card:#FFFFFF; --line:#E1E5EB;
+    --ink:#1B2733; --ink-soft:#5A6672; --ink-faint:#8D98A4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+    background:#5B6672; color:var(--ink); padding:24px; display:flex; justify-content:center;
+    font-feature-settings:"tnum" 1;
+  }
+  .shell{width:100%; max-width:1440px}
+  .frame{display:flex; background:var(--canvas); border-radius:8px; overflow:hidden;
+         box-shadow:0 18px 50px rgba(0,0,0,.35)}
+
+  /* ---- left rail ---- */
+  .rail{width:172px; flex:0 0 172px; background:var(--navy-deep); padding:20px 0; color:#fff}
+  .brand{padding:0 18px 20px; border-bottom:1px solid rgba(255,255,255,.12); margin-bottom:14px}
+  .brand b{display:block; font-size:15px; letter-spacing:.2px}
+  .brand span{display:block; font-size:10.5px; color:#8FA6BC; margin-top:3px; letter-spacing:.6px; text-transform:uppercase}
+  .tab{display:block; width:100%; text-align:left; background:none; border:0; color:#B6C6D6;
+       font:inherit; font-size:12.5px; padding:10px 18px; cursor:pointer; border-left:3px solid transparent;
+       transition:background .15s, color .15s}
+  .tab:hover{background:rgba(255,255,255,.06); color:#fff}
+  .tab.on{background:rgba(232,69,60,.16); color:#fff; border-left-color:var(--red); font-weight:600}
+  .tab em{display:block; font-style:normal; font-size:10px; color:#7E93A8; margin-top:2px}
+  .tab.on em{color:#C2A0A0}
+  .railnote{margin-top:auto; padding:16px 18px 0; font-size:10px; line-height:1.5; color:#7E93A8}
+
+  /* ---- canvas ---- */
+  .canvas{flex:1; min-width:0; padding:0 0 18px}
+  .topbar{background:var(--navy); color:#fff; padding:15px 22px; display:flex;
+          align-items:baseline; justify-content:space-between; gap:16px; flex-wrap:wrap}
+  .topbar h1{font-size:19px; font-weight:600; letter-spacing:.1px}
+  .topbar .sub{font-size:11.5px; color:#A9C0D6}
+  .page{display:none; padding:16px 18px 0}
+  .page.on{display:block}
+
+  .grid{display:grid; gap:12px}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:6px; padding:13px 15px}
+  .card h3{font-size:12px; font-weight:600; color:var(--ink); margin-bottom:2px}
+  .card .hint{font-size:10.5px; color:var(--ink-faint); margin-bottom:10px}
+
+  /* KPI */
+  .kpis{display:grid; grid-template-columns:repeat(5,1fr); gap:12px}
+  .kpi{background:var(--card); border:1px solid var(--line); border-radius:6px; padding:13px 15px;
+       border-top:3px solid var(--navy)}
+  .kpi.accent{border-top-color:var(--red)}
+  .kpi.good{border-top-color:var(--teal)}
+  .kpi.warn{border-top-color:var(--amber)}
+  .kpi .lbl{font-size:10.5px; text-transform:uppercase; letter-spacing:.6px; color:var(--ink-soft)}
+  .kpi .val{font-size:26px; font-weight:600; line-height:1.15; margin-top:5px; letter-spacing:-.5px}
+  .kpi .sub{font-size:10.5px; color:var(--ink-faint); margin-top:3px}
+  .kpi .val.red{color:var(--red)} .kpi .val.teal{color:var(--teal)}
+
+  /* bars */
+  .bars{display:flex; flex-direction:column; gap:7px}
+  .bar{display:grid; grid-template-columns:104px 1fr 76px; align-items:center; gap:9px; font-size:11px}
+  .bar .name{color:var(--ink-soft); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .bar .track{background:#EDF0F4; border-radius:3px; height:15px; overflow:hidden}
+  .bar .fill{height:100%; border-radius:3px}
+  .bar .num{text-align:right; font-weight:600; font-size:11px}
+
+  /* table */
+  table{width:100%; border-collapse:collapse; font-size:11px}
+  th{text-align:right; font-size:10px; text-transform:uppercase; letter-spacing:.5px;
+     color:var(--ink-soft); font-weight:600; padding:0 7px 7px; border-bottom:1px solid var(--line)}
+  th:first-child, td:first-child{text-align:left}
+  td{padding:7px; border-bottom:1px solid #F0F2F5; text-align:right}
+  tbody tr:last-child td{border-bottom:0}
+  .chip{display:inline-block; padding:1.5px 7px; border-radius:9px; font-size:10px; font-weight:600}
+  .chip.ok{background:#E4F4F0; color:#146B5E}
+  .chip.mid{background:#FCF2E0; color:#8A6018}
+  .chip.bad{background:#FBE7E5; color:#A5322B}
+
+  .legend{display:flex; flex-wrap:wrap; gap:11px; margin-top:9px; font-size:10.5px; color:var(--ink-soft)}
+  .legend i{width:9px; height:9px; border-radius:2px; display:inline-block; margin-right:5px;
+            vertical-align:-1px; font-style:normal}
+
+  .note{background:#FFF8E8; border:1px solid #F0DCAE; border-left:3px solid var(--amber);
+        border-radius:5px; padding:9px 12px; font-size:11px; color:#6B5420; line-height:1.5; margin-top:12px}
+  .note b{color:#4E3D14}
+
+  .slicers{display:flex; gap:8px; align-items:center; margin-top:12px; flex-wrap:wrap}
+  .slicer{background:var(--card); border:1px solid var(--line); border-radius:4px;
+          padding:6px 11px; font-size:11px; color:var(--ink-soft)}
+  .slicer b{color:var(--ink)}
+  .pill{background:var(--card); border:1px solid var(--line); border-radius:4px; overflow:hidden; display:flex}
+  .pill span{padding:6px 12px; font-size:11px; color:var(--ink-soft); border-right:1px solid var(--line)}
+  .pill span:last-child{border-right:0}
+  .pill span.on{background:var(--navy); color:#fff; font-weight:600}
+
+  svg{display:block; width:100%; height:auto}
+  .ax{font-size:9.5px; fill:var(--ink-faint)}
+  .gl{stroke:#EDF0F4; stroke-width:1}
+
+  @media (max-width:900px){
+    body{padding:8px}
+    .frame{flex-direction:column}
+    .rail{width:100%; flex:0 0 auto; display:flex; flex-wrap:wrap; padding:10px}
+    .brand{border-bottom:0; padding:0 10px; margin:0 0 8px; width:100%}
+    .tab{width:auto; border-left:0; border-bottom:3px solid transparent; padding:8px 12px}
+    .tab.on{border-left:0; border-bottom-color:var(--red)}
+    .tab em{display:none}
+    .railnote{display:none}
+    .kpis{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="shell">
+<div class="frame">
+
+  <nav class="rail">
+    <div class="brand"><b>MakeMyTrip</b><span>Report mockup</span></div>
+    <button class="tab on" data-p="p1">Executive Overview<em>Page 1</em></button>
+    <button class="tab" data-p="p2">Service Performance<em>Page 2</em></button>
+    <button class="tab" data-p="p3">Customers &amp; Retention<em>Page 3</em></button>
+    <button class="tab" data-p="p4">Payments &amp; Promotions<em>Page 4</em></button>
+    <div class="railnote">Figures are the real values from your dataset. Build these four pages in Power BI Desktop and your cards should match.</div>
+  </nav>
+
+  <main class="canvas">
+    <div class="topbar">
+      <h1 id="ttl">MakeMyTrip — Performance Overview</h1>
+      <div class="sub">Jan 2024 – Jul 2026 &nbsp;·&nbsp; 900 bookings &nbsp;·&nbsp; 300 users</div>
+    </div>
+
+    <!-- ============ PAGE 1 ============ -->
+    <section class="page on" id="p1">
+      <div class="kpis">
+        <div class="kpi accent"><div class="lbl">Net revenue</div><div class="val red">₹2.15 Cr</div><div class="sub">after ₹35.0 L refunds</div></div>
+        <div class="kpi"><div class="lbl">Total bookings</div><div class="val">900</div><div class="sub">31 months</div></div>
+        <div class="kpi"><div class="lbl">Active users</div><div class="val">284</div><div class="sub">94.7% of registered</div></div>
+        <div class="kpi good"><div class="lbl">Avg rating</div><div class="val teal">4.07</div><div class="sub">339 reviews</div></div>
+        <div class="kpi warn"><div class="lbl">Failed bookings</div><div class="val">19.2%</div><div class="sub">cancelled + refunded</div></div>
+      </div>
+
+      <div class="grid" style="grid-template-columns:2fr 1fr; margin-top:12px">
+        <div class="card">
+          <h3>Net revenue and booking volume by quarter</h3>
+          <div class="hint">2026 Q3 excluded — data stops 20 July</div>
+          <svg viewBox="0 0 640 240" role="img" aria-label="Combined column and line chart of quarterly revenue and bookings">
+            <g class="gl"><line x1="46" y1="30" x2="628" y2="30"/><line x1="46" y1="72" x2="628" y2="72"/><line x1="46" y1="114" x2="628" y2="114"/><line x1="46" y1="156" x2="628" y2="156"/><line x1="46" y1="198" x2="628" y2="198"/></g>
+            <g class="ax" text-anchor="end">
+              <text x="41" y="34">120</text><text x="41" y="76">90</text><text x="41" y="118">60</text><text x="41" y="160">30</text><text x="41" y="202">0</text>
+            </g>
+            <g id="p1cols" fill="#123A5F" opacity=".82"></g>
+            <polyline id="p1line" fill="none" stroke="#E8453C" stroke-width="2.5" stroke-linejoin="round"/>
+            <g id="p1dots" fill="#E8453C"></g>
+            <g id="p1lab" class="ax" text-anchor="middle"></g>
+          </svg>
+          <div class="legend"><span><i style="background:#123A5F"></i>Bookings (left)</span><span><i style="background:#E8453C"></i>Net revenue (right)</span></div>
+        </div>
+
+        <div class="card">
+          <h3>Revenue by service</h3>
+          <div class="hint">Share of ₹2.15 Cr net</div>
+          <svg viewBox="0 0 220 190" role="img" aria-label="Donut chart of revenue share by service">
+            <g id="donut" transform="translate(110,88)"></g>
+            <text x="110" y="83" text-anchor="middle" font-size="21" font-weight="600" fill="#1B2733">64%</text>
+            <text x="110" y="98" text-anchor="middle" font-size="9.5" fill="#8D98A4">from hotels</text>
+          </svg>
+          <div class="legend" id="donleg"></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:12px">
+        <h3>Booking status by service</h3>
+        <div class="hint">Confirmed and completed convert to revenue; pending and cancelled never pay</div>
+        <div id="statusbars"></div>
+        <div class="legend">
+          <span><i style="background:#1F9C8C"></i>Completed</span>
+          <span><i style="background:#123A5F"></i>Confirmed</span>
+          <span><i style="background:#E8A33D"></i>Pending</span>
+          <span><i style="background:#8B5E9C"></i>Refunded</span>
+          <span><i style="background:#E8453C"></i>Cancelled</span>
+        </div>
+      </div>
+
+      <div class="slicers">
+        <div class="pill"><span class="on">All years</span><span>2024</span><span>2025</span><span>2026</span></div>
+        <div class="slicer">Service type <b>All ▾</b></div>
+        <div class="slicer">Status <b>All ▾</b></div>
+      </div>
+    </section>
+
+    <!-- ============ PAGE 2 ============ -->
+    <section class="page" id="p2">
+      <div class="grid" style="grid-template-columns:1.3fr 1fr">
+        <div class="card">
+          <h3>Volume against yield</h3>
+          <div class="hint">Bubble size = net revenue. The quadrant a service sits in is the finding.</div>
+          <svg viewBox="0 0 460 290" role="img" aria-label="Scatter plot of booking volume against revenue per booking by service">
+            <rect x="52" y="18" width="392" height="222" fill="#FAFBFC"/>
+            <line x1="248" y1="18" x2="248" y2="240" stroke="#DDE2E8" stroke-dasharray="3 3"/>
+            <line x1="52" y1="145" x2="444" y2="145" stroke="#DDE2E8" stroke-dasharray="3 3"/>
+            <text x="60" y="32" font-size="9" fill="#B4BDC6">LOW VOLUME · HIGH YIELD</text>
+            <text x="436" y="32" font-size="9" fill="#B4BDC6" text-anchor="end">HIGH VOLUME · HIGH YIELD</text>
+            <text x="60" y="234" font-size="9" fill="#B4BDC6">LOW VOLUME · LOW YIELD</text>
+            <text x="436" y="234" font-size="9" fill="#B4BDC6" text-anchor="end">HIGH VOLUME · LOW YIELD</text>
+            <g id="scatter"></g>
+            <text x="248" y="266" class="ax" text-anchor="middle" font-size="10">Total bookings →</text>
+            <text x="16" y="129" class="ax" font-size="10" transform="rotate(-90 16 129)" text-anchor="middle">Revenue per booking →</text>
+            <g class="ax" text-anchor="end"><text x="47" y="26">₹55K</text><text x="47" y="149">₹28K</text><text x="47" y="244">₹0</text></g>
+            <g class="ax" text-anchor="middle"><text x="52" y="254">0</text><text x="248" y="254">175</text><text x="444" y="254">350</text></g>
+          </svg>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:12px">
+          <div class="card">
+            <h3>Top airlines by revenue</h3>
+            <div class="hint">via FlightBookings → Flights</div>
+            <div class="bars" id="airlines"></div>
+          </div>
+          <div class="card">
+            <h3>Top hotel cities by revenue</h3>
+            <div class="hint">via HotelBookings → Hotels</div>
+            <div class="bars" id="cities"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid" style="grid-template-columns:1fr 1.3fr; margin-top:12px">
+        <div class="card">
+          <h3>Failure rate by service</h3>
+          <div class="hint">Cancelled plus refunded, as a share of bookings</div>
+          <div class="bars" id="failbars"></div>
+        </div>
+        <div class="card">
+          <h3>Service scorecard</h3>
+          <div class="hint">Matrix visual with data bars and conditional formatting</div>
+          <table>
+            <thead><tr><th>Service</th><th>Bookings</th><th>Net revenue</th><th>Per booking</th><th>Rating</th><th>Failed</th><th>Share</th></tr></thead>
+            <tbody id="scorecard"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="note"><b>What to write up:</b> hotels are 29% of bookings but 64% of revenue, at ₹53.5K per booking against ₹18.9K for flights. Flights are the traffic driver; hotels are the margin. Ground transport (bus, train, car) is 33% of bookings and under 6% of revenue, and carries the worst failure rates — that combination is the strongest argument in the dataset.</div>
+    </section>
+
+    <!-- ============ PAGE 3 ============ -->
+    <section class="page" id="p3">
+      <div class="kpis">
+        <div class="kpi good"><div class="lbl">Repeat rate</div><div class="val teal">85.2%</div><div class="sub">242 of 284 active</div></div>
+        <div class="kpi"><div class="lbl">Bookings / user</div><div class="val">3.17</div><div class="sub">active users only</div></div>
+        <div class="kpi warn"><div class="lbl">Days to first booking</div><div class="val">382</div><div class="sub">from registration</div></div>
+        <div class="kpi accent"><div class="lbl">Revenue per user</div><div class="val red">₹75.7K</div><div class="sub">lifetime, net</div></div>
+        <div class="kpi"><div class="lbl">Activation</div><div class="val">94.7%</div><div class="sub">16 users never booked</div></div>
+      </div>
+
+      <div class="grid" style="grid-template-columns:1fr 1fr; margin-top:12px">
+        <div class="card">
+          <h3>Booking value distribution</h3>
+          <div class="hint">Bookings[Price Band] — the calculated column in Section 0</div>
+          <svg viewBox="0 0 440 200" role="img" aria-label="Column chart of bookings by price band">
+            <g class="gl"><line x1="42" y1="24" x2="430" y2="24"/><line x1="42" y1="64" x2="430" y2="64"/><line x1="42" y1="104" x2="430" y2="104"/><line x1="42" y1="144" x2="430" y2="144"/></g>
+            <g class="ax" text-anchor="end"><text x="37" y="28">300</text><text x="37" y="68">200</text><text x="37" y="108">100</text><text x="37" y="148">0</text></g>
+            <g id="bands"></g>
+          </svg>
+        </div>
+        <div class="card">
+          <h3>Average rating by service</h3>
+          <div class="hint">Axis starts at 3.0 — on a 0–5 axis these bars are indistinguishable</div>
+          <div class="bars" id="ratebars"></div>
+          <div class="legend"><span>Scale 3.0 → 4.5</span></div>
+        </div>
+      </div>
+
+      <div class="grid" style="grid-template-columns:1fr 1.4fr; margin-top:12px">
+        <div class="card">
+          <h3>Review sentiment</h3>
+          <div class="hint">339 reviews, 37.7% coverage of bookings</div>
+          <div class="bars" id="ratingdist"></div>
+        </div>
+        <div class="card">
+          <h3>Retention shape</h3>
+          <div class="hint">One bar, two segments — clearer than a donut on a projector</div>
+          <svg viewBox="0 0 460 62" role="img" aria-label="Split bar of repeat versus one-time users">
+            <rect x="0" y="10" width="392" height="34" rx="4" fill="#1F9C8C"/>
+            <rect x="392" y="10" width="68" height="34" rx="4" fill="#C9D2DB"/>
+            <text x="16" y="32" fill="#fff" font-size="12.5" font-weight="600">242 repeat users</text>
+            <text x="450" y="32" fill="#4A5560" font-size="11" text-anchor="end">42 one-time</text>
+          </svg>
+          <div class="note" style="margin-top:10px"><b>Read it carefully.</b> An 85% repeat rate is implausibly high for a real OTA — this is synthetic data with bookings spread evenly across 284 users. Say so in your write-up rather than presenting it as a finding. The 382-day gap between registration and first booking is the same artefact.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PAGE 4 ============ -->
+    <section class="page" id="p4">
+      <div class="grid" style="grid-template-columns:1.2fr 1fr">
+        <div class="card">
+          <h3>Net revenue by payment method</h3>
+          <div class="hint">EMI leads — worth a callout given the basket sizes involved</div>
+          <div class="bars" id="paybars"></div>
+        </div>
+        <div class="card">
+          <h3>Coupon programme</h3>
+          <div class="hint">DiscountCoupons redeemed against bookings</div>
+          <div class="kpis" style="grid-template-columns:1fr 1fr; gap:10px">
+            <div class="kpi"><div class="lbl">Redeemed</div><div class="val" style="font-size:22px">217</div></div>
+            <div class="kpi"><div class="lbl">Redemption rate</div><div class="val" style="font-size:22px">24.1%</div></div>
+            <div class="kpi warn"><div class="lbl">Avg discount</div><div class="val" style="font-size:22px">16.7%</div></div>
+            <div class="kpi accent"><div class="lbl">Value given away</div><div class="val red" style="font-size:22px">₹13.3 L</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid" style="grid-template-columns:1fr 1.4fr; margin-top:12px">
+        <div class="card">
+          <h3>Does a coupon lift the basket?</h3>
+          <div class="hint">Average booking value, coupon vs no coupon</div>
+          <svg viewBox="0 0 400 150" role="img" aria-label="Comparison of average booking value with and without a coupon">
+            <rect x="34" y="34" width="148" height="66" rx="4" fill="#E8453C"/>
+            <text x="108" y="70" text-anchor="middle" fill="#fff" font-size="19" font-weight="600">₹36,974</text>
+            <text x="108" y="86" text-anchor="middle" fill="#FBD5D2" font-size="10">with coupon</text>
+            <rect x="218" y="34" width="148" height="66" rx="4" fill="#123A5F"/>
+            <text x="292" y="70" text-anchor="middle" fill="#fff" font-size="19" font-weight="600">₹34,796</text>
+            <text x="292" y="86" text-anchor="middle" fill="#A9C0D6" font-size="10">no coupon</text>
+            <text x="200" y="126" text-anchor="middle" font-size="11" fill="#5A6672">+6.3% lift · ₹2,178 per booking</text>
+          </svg>
+        </div>
+
+        <div class="card">
+          <h3>Value at risk — ops follow-up</h3>
+          <div class="hint">Pending and cancelled bookings, highest value first</div>
+          <table>
+            <thead><tr><th>Booking</th><th>Service</th><th>Basket</th><th>Status</th></tr></thead>
+            <tbody id="risktbl"></tbody>
+          </table>
+          <div class="legend"><span>185 bookings · ₹67.9 L unconverted basket value</span></div>
+        </div>
+      </div>
+
+      <div class="note"><b>The honest read on coupons:</b> a 6.3% basket lift against a 16.7% average discount means the programme costs more than it returns on these numbers. That's a real, defensible conclusion to put in the report — and a better one than "coupons drive sales," which the data does not support.</div>
+    </section>
+  </main>
+</div>
+</div>
+
+<script>
+(function(){
+  var C={navy:'#123A5F',red:'#E8453C',teal:'#1F9C8C',amber:'#E8A33D',purple:'#8B5E9C',slate:'#6B7A8C'};
+  var inr=function(n){return '₹'+n.toLocaleString('en-IN')};
+  var lakh=function(n){return n>=1e7?'₹'+(n/1e7).toFixed(2)+' Cr':'₹'+(n/1e5).toFixed(1)+' L'};
+
+  /* ---- page switching ---- */
+  var titles={p1:'MakeMyTrip — Performance Overview',p2:'Service Performance',p3:'Customers & Retention',p4:'Payments & Promotions'};
+  document.querySelectorAll('.tab').forEach(function(t){
+    t.addEventListener('click',function(){
+      document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on')});
+      document.querySelectorAll('.page').forEach(function(x){x.classList.remove('on')});
+      t.classList.add('on');
+      document.getElementById(t.dataset.p).classList.add('on');
+      document.getElementById('ttl').textContent=titles[t.dataset.p];
+    });
+  });
+
+  /* ---- P1 combo chart ---- */
+  var q=[['24 Q1',74,2094361],['24 Q2',101,2192409],['24 Q3',86,2230745],['24 Q4',96,1411427],
+         ['25 Q1',87,1367769],['25 Q2',100,2824797],['25 Q3',87,1650783],['25 Q4',81,2478949],
+         ['26 Q1',82,2259151],['26 Q2',86,2835991]];
+  var x0=52,x1=624,base=198,top=30,w=(x1-x0)/q.length,maxB=120,maxR=3000000;
+  var cols='',pts=[],dots='',labs='';
+  q.forEach(function(d,i){
+    var cx=x0+w*i+w/2, h=(d[1]/maxB)*(base-top), bw=w*0.5;
+    cols+='<rect x="'+(cx-bw/2)+'" y="'+(base-h)+'" width="'+bw+'" height="'+h+'" rx="2"/>';
+    var ry=base-(d[2]/maxR)*(base-top);
+    pts.push(cx.toFixed(1)+','+ry.toFixed(1));
+    dots+='<circle cx="'+cx+'" cy="'+ry.toFixed(1)+'" r="3.2"/>';
+    labs+='<text x="'+cx+'" y="214">'+d[0]+'</text>';
+  });
+  document.getElementById('p1cols').innerHTML=cols;
+  document.getElementById('p1line').setAttribute('points',pts.join(' '));
+  document.getElementById('p1dots').innerHTML=dots;
+  document.getElementById('p1lab').innerHTML=labs;
+
+  /* ---- P1 donut ---- */
+  var svc=[['Hotel',13804359,C.red],['Flight',6503479,C.navy],['Train',493857,C.teal],['Bus',447595,C.amber],['Car rental',257422,C.purple]];
+  var tot=svc.reduce(function(a,b){return a+b[1]},0), ang=-Math.PI/2, R=68, r=42, dp='', dl='';
+  svc.forEach(function(s){
+    var a2=ang+(s[1]/tot)*Math.PI*2, big=(a2-ang)>Math.PI?1:0;
+    var p=function(rad,a){return [(rad*Math.cos(a)).toFixed(2),(rad*Math.sin(a)).toFixed(2)]};
+    var A=p(R,ang),B=p(R,a2),Cc=p(r,a2),D=p(r,ang);
+    dp+='<path d="M'+A+' A'+R+','+R+' 0 '+big+' 1 '+B+' L'+Cc+' A'+r+','+r+' 0 '+big+' 0 '+D+' Z" fill="'+s[2]+'"/>';
+    dl+='<span><i style="background:'+s[2]+'"></i>'+s[0]+' '+(100*s[1]/tot).toFixed(1)+'%</span>';
+    ang=a2;
+  });
+  document.getElementById('donut').innerHTML=dp;
+  document.getElementById('donleg').innerHTML=dl;
+
+  /* ---- P1 status stacked ---- */
+  var st=[['Flight',{Completed:80,Confirmed:170,Pending:36,Refunded:31,Cancelled:27}],
+          ['Hotel',{Completed:56,Confirmed:125,Pending:39,Refunded:15,Cancelled:23}],
+          ['Bus',{Completed:34,Confirmed:54,Pending:17,Refunded:19,Cancelled:15}],
+          ['Train',{Completed:29,Confirmed:35,Pending:5,Refunded:16,Cancelled:10}],
+          ['Car rental',{Completed:16,Confirmed:26,Pending:5,Refunded:9,Cancelled:8}]];
+  var order=[['Completed',C.teal],['Confirmed',C.navy],['Pending',C.amber],['Refunded',C.purple],['Cancelled',C.red]];
+  var maxS=344, html='';
+  st.forEach(function(row){
+    var seg='';
+    order.forEach(function(o){
+      var pct=(row[1][o[0]]/maxS)*100;
+      seg+='<div style="width:'+pct+'%;background:'+o[1]+'" title="'+o[0]+': '+row[1][o[0]]+'"></div>';
+    });
+    var n=Object.keys(row[1]).reduce(function(a,k){return a+row[1][k]},0);
+    html+='<div class="bar"><span class="name">'+row[0]+'</span>'+
+          '<span class="track" style="display:flex">'+seg+'</span>'+
+          '<span class="num">'+n+'</span></div>';
+  });
+  document.getElementById('statusbars').innerHTML='<div class="bars">'+html+'</div>';
+
+  /* ---- P2 scatter ---- */
+  var sc=[['Hotel',258,53506,13804359,C.red],['Flight',344,18906,6503479,C.navy],
+          ['Train',95,5199,493857,C.teal],['Bus',139,3220,447595,C.amber],['Car rental',64,4022,257422,C.purple]];
+  var sx=function(v){return 52+(v/350)*392}, sy=function(v){return 240-(v/55000)*222};
+  var sg='';
+  sc.forEach(function(d){
+    var rad=8+Math.sqrt(d[3]/13804359)*20;
+    sg+='<circle cx="'+sx(d[1]).toFixed(1)+'" cy="'+sy(d[2]).toFixed(1)+'" r="'+rad.toFixed(1)+'" fill="'+d[4]+'" opacity=".72"/>';
+    sg+='<text x="'+sx(d[1]).toFixed(1)+'" y="'+(sy(d[2])-rad-5).toFixed(1)+'" text-anchor="middle" font-size="10" font-weight="600" fill="#1B2733">'+d[0]+'</text>';
+  });
+  document.getElementById('scatter').innerHTML=sg;
+
+  /* ---- generic bar renderer ---- */
+  function bars(el,data,colour,fmt,max){
+    var m=max||Math.max.apply(null,data.map(function(d){return d[1]}));
+    document.getElementById(el).innerHTML=data.map(function(d,i){
+      var c=typeof colour==='function'?colour(d,i):colour;
+      return '<div class="bar"><span class="name">'+d[0]+'</span>'+
+             '<span class="track"><span class="fill" style="width:'+(100*d[1]/m)+'%;background:'+c+'"></span></span>'+
+             '<span class="num">'+fmt(d[1])+'</span></div>';
+    }).join('');
+  }
+
+  bars('airlines',[['Akasa Air',1745014],['Air India',1674555],['Vistara',1630176],['Air India Express',1513568],['IndiGo',1040625],['SpiceJet',844120],['Go First',654063]],C.navy,lakh);
+  bars('cities',[['Rishikesh',2499462],['Shimla',2438270],['Varanasi',2151169],['Chandigarh',2120617],['Surat',1472619],['Chennai',1234150],['Lucknow',978632]],C.red,lakh);
+  bars('failbars',[['Train',27.3],['Car rental',26.6],['Bus',24.5],['Flight',16.8],['Hotel',14.7]],
+       function(d){return d[1]>24?C.red:(d[1]>18?C.amber:C.teal)},function(v){return v.toFixed(1)+'%'},30);
+  bars('paybars',[['EMI',4620088],['Debit Card',3954654],['UPI',3532038],['Credit Card',3510644],['Net Banking',3155394],['Wallet',2733894]],C.navy,lakh);
+  bars('ratingdist',[['5 star',147],['4 star',109],['3 star',52],['2 star',21],['1 star',10]],
+       function(d,i){return [C.teal,C.teal,C.amber,C.red,C.red][i]},function(v){return v});
+
+  /* rating bars on a 3.0-4.5 truncated scale */
+  document.getElementById('ratebars').innerHTML=[['Flight',4.19],['Hotel',4.03],['Bus',4.00],['Train',4.00],['Car rental',3.74]]
+    .map(function(d){
+      var pct=((d[1]-3.0)/1.5)*100;
+      return '<div class="bar"><span class="name">'+d[0]+'</span>'+
+             '<span class="track"><span class="fill" style="width:'+pct.toFixed(1)+'%;background:'+(d[1]>=4?C.teal:C.amber)+'"></span></span>'+
+             '<span class="num">'+d[1].toFixed(2)+'</span></div>';
+    }).join('');
+
+  /* ---- P2 scorecard ---- */
+  var rows=[['Hotel',258,13804359,53506,4.03,14.7,64.2],['Flight',344,6503479,18906,4.19,16.8,30.2],
+            ['Train',95,493857,5199,4.00,27.3,2.3],['Bus',139,447595,3220,4.00,24.5,2.1],
+            ['Car rental',64,257422,4022,3.74,26.6,1.2]];
+  document.getElementById('scorecard').innerHTML=rows.map(function(r){
+    var cls=r[5]>24?'bad':(r[5]>18?'mid':'ok');
+    return '<tr><td><b>'+r[0]+'</b></td><td>'+r[1]+'</td><td>'+lakh(r[2])+'</td><td>'+inr(r[3])+'</td><td>'+r[4].toFixed(2)+'</td>'+
+           '<td><span class="chip '+cls+'">'+r[5].toFixed(1)+'%</span></td><td>'+r[6].toFixed(1)+'%</td></tr>';
+  }).join('');
+
+  /* ---- P3 price bands ---- */
+  var bd=[['Under 2.5K',66],['2.5K–10K',252],['10K–25K',237],['25K–75K',248],['75K+',97]];
+  var bg='',bw2=62;
+  bd.forEach(function(d,i){
+    var h=(d[1]/300)*120, cx=58+i*76;
+    bg+='<rect x="'+cx+'" y="'+(144-h).toFixed(1)+'" width="'+bw2+'" height="'+h.toFixed(1)+'" rx="2" fill="'+(i>=3?C.red:C.navy)+'" opacity=".85"/>';
+    bg+='<text x="'+(cx+bw2/2)+'" y="'+(138-h).toFixed(1)+'" text-anchor="middle" font-size="10" font-weight="600" fill="#1B2733">'+d[1]+'</text>';
+    bg+='<text x="'+(cx+bw2/2)+'" y="162" text-anchor="middle" class="ax">'+d[0]+'</text>';
+  });
+  document.getElementById('bands').innerHTML=bg;
+
+  /* ---- P4 risk table ---- */
+  var risk=[[29,'Hotel',381990,'Pending'],[4,'Hotel',263337,'Cancelled'],[49,'Hotel',219877,'Cancelled'],
+            [518,'Hotel',214488,'Cancelled'],[499,'Hotel',214488,'Pending'],[159,'Hotel',185739,'Pending'],
+            [419,'Hotel',167334,'Cancelled']];
+  document.getElementById('risktbl').innerHTML=risk.map(function(r){
+    return '<tr><td>#'+r[0]+'</td><td>'+r[1]+'</td><td>'+inr(r[2])+'</td>'+
+           '<td><span class="chip '+(r[3]==='Cancelled'?'bad':'mid')+'">'+r[3]+'</span></td></tr>';
+  }).join('');
+})();
+</script>
+</body>
+</html>

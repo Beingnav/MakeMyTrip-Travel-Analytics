@@ -1,0 +1,359 @@
+================================================================================
+MAKEMYTRIP POWER BI — DAX LIBRARY
+Paste each block into: Modeling > New measure  (put them in the _Measures table)
+Calculated COLUMNS and TABLES are marked; those go in New column / New table.
+================================================================================
+
+
+--------------------------------------------------------------------------------
+SECTION 0 — TABLES AND COLUMNS YOU MUST CREATE FIRST
+--------------------------------------------------------------------------------
+
+-- [NEW TABLE] The calendar. Data runs Jan 2024 - Aug 2026, so this range covers it.
+DateTable =
+VAR MinDate = DATE ( 2024, 1, 1 )
+VAR MaxDate = DATE ( 2026, 12, 31 )
+RETURN
+ADDCOLUMNS (
+    CALENDAR ( MinDate, MaxDate ),
+    "Year",          YEAR ( [Date] ),
+    "Quarter",       "Q" & QUARTER ( [Date] ),
+    "Year Quarter",  YEAR ( [Date] ) & " Q" & QUARTER ( [Date] ),
+    "Month Number",  MONTH ( [Date] ),
+    "Month",         FORMAT ( [Date], "MMM" ),
+    "Year Month",    FORMAT ( [Date], "MMM YYYY" ),
+    "Year Month Sort", YEAR ( [Date] ) * 100 + MONTH ( [Date] ),
+    "Weekday",       FORMAT ( [Date], "ddd" ),
+    "Weekday Number", WEEKDAY ( [Date], 2 ),
+    "Is Weekend",    IF ( WEEKDAY ( [Date], 2 ) > 5, "Weekend", "Weekday" )
+)
+
+-- After creating it:
+--   1. Table tools > Mark as Date Table > Date
+--   2. Sort "Month" by "Month Number"
+--   3. Sort "Year Month" by "Year Month Sort"
+--   4. Sort "Weekday" by "Weekday Number"
+
+
+-- [NEW COLUMN on Bookings] Strips the time so it can join to DateTable.
+BookingDate = DATEVALUE ( Bookings[BookingDateTime] )
+
+
+-- [NEW COLUMN on Bookings] Controls the order status appears in visuals.
+Status Order =
+SWITCH (
+    Bookings[Status],
+    "Completed", 1,
+    "Confirmed", 2,
+    "Pending",   3,
+    "Refunded",  4,
+    "Cancelled", 5,
+    99
+)
+-- Then: select the Status column > Sort by column > Status Order
+
+
+-- [NEW COLUMN on Bookings] Buckets for the value-distribution visual.
+Price Band =
+SWITCH (
+    TRUE (),
+    Bookings[TotalPrice] < 2500,   "1. Under 2.5K",
+    Bookings[TotalPrice] < 10000,  "2. 2.5K - 10K",
+    Bookings[TotalPrice] < 25000,  "3. 10K - 25K",
+    Bookings[TotalPrice] < 75000,  "4. 25K - 75K",
+    "5. 75K+"
+)
+
+
+-- [NEW COLUMN on Users] Cohort month for the retention page.
+Registration Cohort = FORMAT ( Users[RegistrationDate], "MMM YYYY" )
+
+Registration Cohort Sort = YEAR ( Users[RegistrationDate] ) * 100 + MONTH ( Users[RegistrationDate] )
+
+
+-- [NEW COLUMN on Hotels] Nights per stay, needed for hotel revenue maths.
+Nights = DATEDIFF ( Hotels[CheckInDateTime], Hotels[CheckOutDateTime], DAY )
+
+
+--------------------------------------------------------------------------------
+SECTION 1 — VOLUME
+--------------------------------------------------------------------------------
+
+Total Bookings = DISTINCTCOUNT ( Bookings[BookingID] )
+
+Booking Value = SUM ( Bookings[TotalPrice] )
+
+Avg Booking Value = DIVIDE ( [Booking Value], [Total Bookings] )
+
+Median Booking Value = MEDIANX ( Bookings, Bookings[TotalPrice] )
+
+Passengers Carried =
+SUM ( FlightBookings[Passengers] )
+    + SUM ( BusBookings[Passengers] )
+    + SUM ( TrainBookings[Passengers] )
+
+Rooms Booked = SUM ( HotelBookings[NumberOfRooms] )
+
+
+--------------------------------------------------------------------------------
+SECTION 2 — REVENUE
+-- Important: Payments only exist for Confirmed, Completed and Refunded bookings.
+-- Pending and Cancelled bookings never paid, so Gross Revenue < Booking Value.
+-- Net Revenue is the number you should headline.
+--------------------------------------------------------------------------------
+
+Gross Revenue = SUM ( Payments[PaymentAmount] )
+
+Refunded Revenue =
+CALCULATE ( [Gross Revenue], Bookings[Status] = "Refunded" )
+
+Net Revenue = [Gross Revenue] - [Refunded Revenue]
+
+Refund Leakage % = DIVIDE ( [Refunded Revenue], [Gross Revenue] )
+
+-- Of everything customers put in a basket, how much did we actually keep?
+Revenue Realisation % = DIVIDE ( [Net Revenue], [Booking Value] )
+
+Revenue per Booking = DIVIDE ( [Net Revenue], [Total Bookings] )
+
+Revenue per Active User =
+DIVIDE ( [Net Revenue], DISTINCTCOUNT ( Bookings[UserID] ) )
+
+
+--------------------------------------------------------------------------------
+SECTION 3 — BOOKING STATUS AND QUALITY
+--------------------------------------------------------------------------------
+
+Completed Bookings   = CALCULATE ( [Total Bookings], Bookings[Status] = "Completed" )
+Confirmed Bookings   = CALCULATE ( [Total Bookings], Bookings[Status] = "Confirmed" )
+Pending Bookings     = CALCULATE ( [Total Bookings], Bookings[Status] = "Pending" )
+Cancelled Bookings   = CALCULATE ( [Total Bookings], Bookings[Status] = "Cancelled" )
+Refunded Bookings    = CALCULATE ( [Total Bookings], Bookings[Status] = "Refunded" )
+
+Cancellation Rate = DIVIDE ( [Cancelled Bookings], [Total Bookings] )
+
+Refund Rate = DIVIDE ( [Refunded Bookings], [Total Bookings] )
+
+-- Cancelled + Refunded: the full "did not stick" picture.
+Failed Booking Rate =
+DIVIDE ( [Cancelled Bookings] + [Refunded Bookings], [Total Bookings] )
+
+Pending Rate = DIVIDE ( [Pending Bookings], [Total Bookings] )
+
+-- Money sitting in unconverted baskets. Good ops-follow-up KPI.
+Value at Risk =
+CALCULATE ( [Booking Value], Bookings[Status] IN { "Pending", "Cancelled" } )
+
+
+--------------------------------------------------------------------------------
+SECTION 4 — CUSTOMERS AND RETENTION
+--------------------------------------------------------------------------------
+
+Total Users = DISTINCTCOUNT ( Users[UserID] )
+
+Active Users = DISTINCTCOUNT ( Bookings[UserID] )
+
+Activation Rate = DIVIDE ( [Active Users], [Total Users] )
+
+Bookings per Active User = DIVIDE ( [Total Bookings], [Active Users] )
+
+Repeat Users =
+COUNTROWS (
+    FILTER (
+        VALUES ( Bookings[UserID] ),
+        CALCULATE ( COUNTROWS ( Bookings ) ) > 1
+    )
+)
+
+Repeat Rate = DIVIDE ( [Repeat Users], [Active Users] )
+
+One-Time Users = [Active Users] - [Repeat Users]
+
+-- Gap between signing up and buying. Long gaps = weak onboarding.
+Avg Days To First Booking =
+AVERAGEX (
+    FILTER ( VALUES ( Users[UserID] ), NOT ISBLANK ( CALCULATE ( COUNTROWS ( Bookings ) ) ) ),
+    VAR FirstBooking = CALCULATE ( MIN ( Bookings[BookingDateTime] ) )
+    VAR RegDate      = CALCULATE ( MIN ( Users[RegistrationDate] ) )
+    RETURN DATEDIFF ( RegDate, FirstBooking, DAY )
+)
+
+-- Users whose first ever booking falls in the current filter context.
+New Customers =
+COUNTROWS (
+    FILTER (
+        VALUES ( Bookings[UserID] ),
+        VAR FirstEver =
+            CALCULATE ( MIN ( Bookings[BookingDate] ), ALL ( DateTable ) )
+        RETURN FirstEver >= MIN ( DateTable[Date] ) && FirstEver <= MAX ( DateTable[Date] )
+    )
+)
+
+Returning Customers = [Active Users] - [New Customers]
+
+Customer Lifetime Value =
+DIVIDE ( [Net Revenue], [Active Users] )
+
+
+--------------------------------------------------------------------------------
+SECTION 5 — REVIEWS AND SATISFACTION
+--------------------------------------------------------------------------------
+
+Avg Rating = AVERAGE ( Reviews[Rating] )
+
+Review Count = COUNTROWS ( Reviews )
+
+-- What share of bookings actually got reviewed?
+Review Coverage = DIVIDE ( DISTINCTCOUNT ( Reviews[BookingID] ), [Total Bookings] )
+
+Promoters  = CALCULATE ( [Review Count], Reviews[Rating] >= 4 )
+Passives   = CALCULATE ( [Review Count], Reviews[Rating] = 3 )
+Detractors = CALCULATE ( [Review Count], Reviews[Rating] <= 2 )
+
+Promoter Share = DIVIDE ( [Promoters], [Review Count] )
+
+-- Simple NPS-style score on a -100 to +100 scale.
+Satisfaction Score =
+DIVIDE ( [Promoters] - [Detractors], [Review Count] ) * 100
+
+-- Rating gap vs the all-service average. Use on the service comparison bar.
+Rating vs Average =
+[Avg Rating] - CALCULATE ( [Avg Rating], ALL ( Bookings[ServiceType] ) )
+
+
+--------------------------------------------------------------------------------
+SECTION 6 — COUPONS AND PROMOTIONS
+--------------------------------------------------------------------------------
+
+Coupons Redeemed = DISTINCTCOUNT ( DiscountCoupons[BookingID] )
+
+Coupon Redemption Rate = DIVIDE ( [Coupons Redeemed], [Total Bookings] )
+
+Avg Discount % = AVERAGE ( DiscountCoupons[DiscountPercent] ) / 100
+
+-- Rupee value handed away, approximated from the discount rate on those bookings.
+Estimated Discount Value =
+SUMX (
+    DiscountCoupons,
+    RELATED ( Bookings[TotalPrice] ) * DiscountCoupons[DiscountPercent] / 100
+)
+
+-- Do discounted bookings behave better or worse than undiscounted ones?
+Avg Value — Coupon Bookings =
+CALCULATE (
+    [Avg Booking Value],
+    FILTER ( Bookings, NOT ISBLANK ( CALCULATE ( COUNTROWS ( DiscountCoupons ) ) ) )
+)
+
+Avg Value — No Coupon =
+CALCULATE (
+    [Avg Booking Value],
+    FILTER ( Bookings, ISBLANK ( CALCULATE ( COUNTROWS ( DiscountCoupons ) ) ) )
+)
+
+
+--------------------------------------------------------------------------------
+SECTION 7 — TIME INTELLIGENCE
+-- Caution: 2026 data stops mid-July. Any full-year 2026 comparison will look
+-- like a collapse. Either filter to complete periods or use the YTD measures.
+--------------------------------------------------------------------------------
+
+Net Revenue LY =
+CALCULATE ( [Net Revenue], SAMEPERIODLASTYEAR ( DateTable[Date] ) )
+
+Revenue YoY % =
+DIVIDE ( [Net Revenue] - [Net Revenue LY], [Net Revenue LY] )
+
+Bookings LY =
+CALCULATE ( [Total Bookings], SAMEPERIODLASTYEAR ( DateTable[Date] ) )
+
+Bookings YoY % =
+DIVIDE ( [Total Bookings] - [Bookings LY], [Bookings LY] )
+
+Revenue YTD = TOTALYTD ( [Net Revenue], DateTable[Date] )
+
+Revenue MTD = TOTALMTD ( [Net Revenue], DateTable[Date] )
+
+-- Like-for-like: same number of days into each year.
+Revenue YTD LY =
+CALCULATE ( [Revenue YTD], SAMEPERIODLASTYEAR ( DateTable[Date] ) )
+
+Revenue Rolling 3M =
+CALCULATE (
+    [Net Revenue],
+    DATESINPERIOD ( DateTable[Date], MAX ( DateTable[Date] ), -3, MONTH )
+)
+
+-- Smooths the noisy monthly line. Put this on the trend chart as a second series.
+Revenue 3M Moving Avg = DIVIDE ( [Revenue Rolling 3M], 3 )
+
+
+--------------------------------------------------------------------------------
+SECTION 8 — SERVICE MIX
+--------------------------------------------------------------------------------
+
+Revenue Share of Total =
+DIVIDE (
+    [Net Revenue],
+    CALCULATE ( [Net Revenue], ALLSELECTED ( Bookings[ServiceType] ) )
+)
+
+Booking Share of Total =
+DIVIDE (
+    [Total Bookings],
+    CALCULATE ( [Total Bookings], ALLSELECTED ( Bookings[ServiceType] ) )
+)
+
+-- Ranks services inside whatever is on the visual. Use for a "Rank" column.
+Service Rank by Revenue =
+RANKX ( ALLSELECTED ( Bookings[ServiceType] ), [Net Revenue],, DESC, DENSE )
+
+-- Derives service type without the helper column, in case you drop it.
+-- Repeat the pattern per service if needed.
+Flight Revenue (derived) =
+CALCULATE (
+    [Net Revenue],
+    FILTER ( Bookings, CALCULATE ( COUNTROWS ( FlightBookings ) ) > 0 )
+)
+
+
+--------------------------------------------------------------------------------
+SECTION 9 — DYNAMIC TITLES AND FORMATTING HELPERS
+-- Put these on a visual's Title > fx > Field value. Makes the report feel built
+-- rather than assembled, and it is a cheap thing to show off in a viva.
+--------------------------------------------------------------------------------
+
+Title — Revenue Trend =
+VAR Svc = SELECTEDVALUE ( Bookings[ServiceType], "All services" )
+VAR Yr  = SELECTEDVALUE ( DateTable[Year], "all years" )
+RETURN "Net revenue trend — " & Svc & ", " & Yr
+
+-- Colours a KPI card conditionally: Home > Format > Font colour > fx > Field value
+Cancellation Colour =
+IF ( [Cancellation Rate] > 0.10, "#C0392B", "#1F7A5C" )
+
+-- Short-form rupee display for card visuals.
+Net Revenue Label =
+VAR v = [Net Revenue]
+RETURN
+SWITCH (
+    TRUE (),
+    v >= 10000000, FORMAT ( v / 10000000, "0.00" ) & " Cr",
+    v >= 100000,   FORMAT ( v / 100000, "0.0" ) & " L",
+    FORMAT ( v, "#,0" )
+)
+
+-- Shows the user what they have filtered to, in words.
+Filter Context Label =
+VAR Svc = CONCATENATEX ( VALUES ( Bookings[ServiceType] ), Bookings[ServiceType], ", " )
+RETURN
+IF (
+    ISFILTERED ( Bookings[ServiceType] ),
+    "Filtered to: " & Svc,
+    "Showing all services"
+)
+
+
+================================================================================
+END
+================================================================================

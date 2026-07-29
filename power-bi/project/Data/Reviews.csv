@@ -1,0 +1,340 @@
+ReviewID,UserID,BookingID,Rating,Comment,ReviewDate
+1,299,5,3,Service was okay for the price paid.,2024-12-24
+2,5,10,5,"App is very easy to use, will book again.",2025-12-24
+3,183,12,2,"App crashed during payment, had to retry.",2024-06-14
+4,186,16,3,"Average experience, could improve UI.",2025-09-23
+5,118,18,5,"Great deal, saved a lot with the coupon.",2026-04-21
+6,180,22,5,Smooth booking experience and quick confirmation.,2026-06-14
+7,147,23,5,Smooth booking experience and quick confirmation.,2025-04-22
+8,176,24,4,Customer support helped resolve my issue quickly.,2024-09-02
+9,267,25,5,Loved the itinerary reminders and updates.,2025-04-08
+10,108,26,5,"App is very easy to use, will book again.",2024-06-24
+11,88,28,4,"App is very easy to use, will book again.",2024-02-02
+12,46,31,5,"App is very easy to use, will book again.",2025-04-02
+13,17,37,5,"App is very easy to use, will book again.",2024-12-18
+14,18,39,4,Loved the itinerary reminders and updates.,2024-08-03
+15,174,43,4,Got the best price compared to other platforms.,2026-03-01
+16,178,44,4,Got the best price compared to other platforms.,2026-04-07
+17,187,47,5,Got the best price compared to other platforms.,2026-03-08
+18,145,48,2,Refund took longer than expected.,2024-12-04
+19,204,58,3,"Average experience, could improve UI.",2024-01-02
+20,299,60,2,Customer support response was slow.,2024-09-25
+21,248,61,5,Customer support helped resolve my issue quickly.,2024-07-02
+22,223,62,4,Customer support helped resolve my issue quickly.,2025-03-11
+23,125,70,5,"Great deal, saved a lot with the coupon.",2025-10-01
+24,35,73,5,Got the best price compared to other platforms.,2025-02-13
+25,257,76,4,"Great deal, saved a lot with the coupon.",2024-10-11
+26,169,78,3,Service was okay for the price paid.,2025-04-16
+27,75,80,1,Customer support response was slow.,2025-11-09
+28,211,81,4,Loved the itinerary reminders and updates.,2024-11-07
+29,184,82,4,"App is very easy to use, will book again.",2024-03-25
+30,233,91,4,Got the best price compared to other platforms.,2024-04-12
+31,290,93,5,"App is very easy to use, will book again.",2026-06-16
+32,93,94,5,Got the best price compared to other platforms.,2024-05-08
+33,286,96,5,"Great deal, saved a lot with the coupon.",2026-04-30
+34,150,99,3,"Booking was fine, nothing exceptional.",2025-04-29
+35,148,101,5,"App is very easy to use, will book again.",2025-03-26
+36,131,104,5,Got the best price compared to other platforms.,2026-03-21
+37,29,107,5,Customer support helped resolve my issue quickly.,2026-05-07
+38,200,109,4,"App is very easy to use, will book again.",2024-07-14
+39,269,112,2,"App crashed during payment, had to retry.",2024-11-25
+40,268,113,4,Smooth booking experience and quick confirmation.,2024-04-30
+41,267,114,4,Smooth booking experience and quick confirmation.,2026-02-28
+42,77,115,3,Service was okay for the price paid.,2024-06-23
+43,146,116,3,"Average experience, could improve UI.",2025-08-13
+44,229,117,5,"App is very easy to use, will book again.",2025-10-03
+45,68,118,5,"Great deal, saved a lot with the coupon.",2024-04-19
+46,133,119,3,"Average experience, could improve UI.",2025-01-15
+47,88,120,4,Got the best price compared to other platforms.,2024-10-20
+48,229,126,3,"Booking was fine, nothing exceptional.",2024-07-29
+49,57,128,4,"Great deal, saved a lot with the coupon.",2026-06-11
+50,65,130,5,Smooth booking experience and quick confirmation.,2024-05-20
+51,4,133,5,Got the best price compared to other platforms.,2025-08-22
+52,19,138,2,Customer support response was slow.,2025-12-25
+53,172,147,5,"Great deal, saved a lot with the coupon.",2024-10-12
+54,173,148,5,Customer support helped resolve my issue quickly.,2025-11-28
+55,290,150,4,Customer support helped resolve my issue quickly.,2026-04-15
+56,219,151,2,Price changed between search and checkout.,2025-12-19
+57,53,153,5,Smooth booking experience and quick confirmation.,2024-02-16
+58,245,155,4,Customer support helped resolve my issue quickly.,2025-03-28
+59,104,157,3,Service was okay for the price paid.,2024-07-05
+60,9,160,4,Smooth booking experience and quick confirmation.,2024-02-08
+61,73,161,3,"Booking was fine, nothing exceptional.",2025-05-20
+62,295,164,4,"Great deal, saved a lot with the coupon.",2025-07-20
+63,125,165,1,Refund took longer than expected.,2025-08-30
+64,167,173,4,"App is very easy to use, will book again.",2025-03-08
+65,111,174,4,Customer support helped resolve my issue quickly.,2025-09-19
+66,223,178,5,Smooth booking experience and quick confirmation.,2025-08-24
+67,278,183,2,Customer support response was slow.,2025-08-15
+68,59,185,4,Smooth booking experience and quick confirmation.,2025-10-28
+69,34,188,3,Service was okay for the price paid.,2024-07-12
+70,151,189,2,Price changed between search and checkout.,2025-03-16
+71,157,192,3,"Booking was fine, nothing exceptional.",2024-07-06
+72,275,193,4,Smooth booking experience and quick confirmation.,2024-10-30
+73,243,196,1,Hidden convenience fee was not clear upfront.,2026-07-20
+74,202,199,5,"App is very easy to use, will book again.",2024-07-24
+75,198,200,5,Loved the itinerary reminders and updates.,2025-01-23
+76,155,204,5,Customer support helped resolve my issue quickly.,2026-05-11
+77,92,205,4,"App is very easy to use, will book again.",2025-06-01
+78,133,206,4,Loved the itinerary reminders and updates.,2025-10-08
+79,273,211,4,Got the best price compared to other platforms.,2026-01-08
+80,176,212,3,"Booking was fine, nothing exceptional.",2024-06-29
+81,67,213,4,Smooth booking experience and quick confirmation.,2024-04-03
+82,50,214,5,Customer support helped resolve my issue quickly.,2026-03-22
+83,145,216,5,Smooth booking experience and quick confirmation.,2024-06-27
+84,182,217,3,"Booking was fine, nothing exceptional.",2025-01-31
+85,249,223,5,Smooth booking experience and quick confirmation.,2025-06-09
+86,168,225,4,Got the best price compared to other platforms.,2024-06-11
+87,227,227,5,"App is very easy to use, will book again.",2025-04-28
+88,165,230,5,Customer support helped resolve my issue quickly.,2024-03-10
+89,44,232,5,Got the best price compared to other platforms.,2025-12-14
+90,200,234,4,"App is very easy to use, will book again.",2024-12-07
+91,39,235,5,Smooth booking experience and quick confirmation.,2026-05-22
+92,297,236,5,Got the best price compared to other platforms.,2024-04-20
+93,212,242,4,"App is very easy to use, will book again.",2024-10-07
+94,22,244,5,Customer support helped resolve my issue quickly.,2026-01-20
+95,18,250,5,Smooth booking experience and quick confirmation.,2026-05-20
+96,168,255,4,Loved the itinerary reminders and updates.,2025-04-14
+97,232,257,5,Got the best price compared to other platforms.,2025-05-15
+98,46,259,5,"Great deal, saved a lot with the coupon.",2025-01-25
+99,217,263,4,Got the best price compared to other platforms.,2026-02-03
+100,287,265,5,"App is very easy to use, will book again.",2024-02-15
+101,134,266,4,"App is very easy to use, will book again.",2024-05-04
+102,261,271,2,"App crashed during payment, had to retry.",2026-05-03
+103,24,283,5,"Great deal, saved a lot with the coupon.",2024-03-30
+104,95,284,4,Loved the itinerary reminders and updates.,2024-04-02
+105,276,287,5,Got the best price compared to other platforms.,2024-07-18
+106,214,291,4,"Great deal, saved a lot with the coupon.",2026-07-07
+107,10,296,3,"Booking was fine, nothing exceptional.",2025-01-04
+108,51,301,4,Smooth booking experience and quick confirmation.,2024-06-11
+109,191,302,3,"Average experience, could improve UI.",2026-01-09
+110,78,305,4,"App is very easy to use, will book again.",2026-07-24
+111,207,307,5,Loved the itinerary reminders and updates.,2025-04-08
+112,267,309,1,Hidden convenience fee was not clear upfront.,2025-07-17
+113,214,317,5,Got the best price compared to other platforms.,2026-04-29
+114,61,318,5,"Great deal, saved a lot with the coupon.",2025-09-21
+115,216,319,2,"App crashed during payment, had to retry.",2024-02-29
+116,24,327,3,"Booking was fine, nothing exceptional.",2025-05-27
+117,62,330,3,"Booking was fine, nothing exceptional.",2024-02-29
+118,238,331,4,Got the best price compared to other platforms.,2025-07-31
+119,52,332,5,"Great deal, saved a lot with the coupon.",2024-09-15
+120,262,335,3,Service was okay for the price paid.,2024-10-20
+121,236,338,5,Loved the itinerary reminders and updates.,2025-09-13
+122,202,339,4,"Great deal, saved a lot with the coupon.",2025-07-13
+123,114,341,5,Loved the itinerary reminders and updates.,2024-09-03
+124,290,343,4,Customer support helped resolve my issue quickly.,2024-07-02
+125,266,346,3,Service was okay for the price paid.,2025-05-05
+126,101,348,5,Customer support helped resolve my issue quickly.,2024-07-01
+127,171,350,5,Smooth booking experience and quick confirmation.,2025-06-23
+128,161,351,3,"Booking was fine, nothing exceptional.",2026-07-09
+129,14,354,5,"Great deal, saved a lot with the coupon.",2025-04-19
+130,65,355,5,Smooth booking experience and quick confirmation.,2025-10-17
+131,278,357,4,Loved the itinerary reminders and updates.,2026-03-08
+132,239,361,4,"Great deal, saved a lot with the coupon.",2025-10-05
+133,226,362,4,"Great deal, saved a lot with the coupon.",2024-07-24
+134,284,363,5,Smooth booking experience and quick confirmation.,2024-09-14
+135,163,366,3,"Booking was fine, nothing exceptional.",2025-09-06
+136,241,368,4,Customer support helped resolve my issue quickly.,2026-04-01
+137,299,370,4,"App is very easy to use, will book again.",2025-11-06
+138,81,371,4,"App is very easy to use, will book again.",2026-05-21
+139,129,375,5,Customer support helped resolve my issue quickly.,2024-11-19
+140,292,383,5,Customer support helped resolve my issue quickly.,2025-04-11
+141,120,384,4,Smooth booking experience and quick confirmation.,2024-11-01
+142,153,388,5,Loved the itinerary reminders and updates.,2025-02-14
+143,49,389,5,Loved the itinerary reminders and updates.,2025-02-18
+144,140,395,4,Smooth booking experience and quick confirmation.,2024-06-19
+145,278,398,2,Customer support response was slow.,2025-02-19
+146,69,401,5,Smooth booking experience and quick confirmation.,2024-12-10
+147,11,402,3,"Booking was fine, nothing exceptional.",2025-09-27
+148,80,410,4,Got the best price compared to other platforms.,2026-05-01
+149,261,415,5,Customer support helped resolve my issue quickly.,2026-01-07
+150,46,420,4,"Great deal, saved a lot with the coupon.",2024-05-05
+151,88,422,4,"Great deal, saved a lot with the coupon.",2024-07-02
+152,103,423,5,Smooth booking experience and quick confirmation.,2024-03-06
+153,52,425,3,"Booking was fine, nothing exceptional.",2024-01-17
+154,173,427,4,Customer support helped resolve my issue quickly.,2025-01-27
+155,281,434,3,Service was okay for the price paid.,2026-06-26
+156,295,437,5,Got the best price compared to other platforms.,2026-03-09
+157,224,438,4,"App is very easy to use, will book again.",2026-04-17
+158,65,440,5,"Great deal, saved a lot with the coupon.",2025-06-24
+159,298,447,5,"Great deal, saved a lot with the coupon.",2026-06-09
+160,101,448,5,"App is very easy to use, will book again.",2026-02-02
+161,207,450,5,Loved the itinerary reminders and updates.,2024-09-20
+162,64,455,2,Hidden convenience fee was not clear upfront.,2026-02-14
+163,83,456,4,"App is very easy to use, will book again.",2024-04-10
+164,262,459,3,Service was okay for the price paid.,2024-08-06
+165,84,461,3,Service was okay for the price paid.,2025-02-25
+166,138,462,3,"Booking was fine, nothing exceptional.",2025-10-21
+167,116,464,4,Customer support helped resolve my issue quickly.,2024-10-17
+168,88,466,5,Smooth booking experience and quick confirmation.,2024-12-03
+169,118,469,2,Price changed between search and checkout.,2024-11-10
+170,271,473,3,"Booking was fine, nothing exceptional.",2025-12-07
+171,69,474,5,Got the best price compared to other platforms.,2025-06-24
+172,169,477,3,"Booking was fine, nothing exceptional.",2024-11-09
+173,275,479,5,Smooth booking experience and quick confirmation.,2026-04-17
+174,102,480,5,"App is very easy to use, will book again.",2024-05-04
+175,11,483,5,Loved the itinerary reminders and updates.,2024-05-10
+176,127,485,5,Got the best price compared to other platforms.,2025-11-24
+177,77,486,4,Loved the itinerary reminders and updates.,2024-09-02
+178,52,490,1,Hidden convenience fee was not clear upfront.,2025-03-30
+179,24,497,2,"App crashed during payment, had to retry.",2025-08-15
+180,143,501,5,Got the best price compared to other platforms.,2024-05-21
+181,97,507,1,Refund took longer than expected.,2024-03-25
+182,228,509,4,Smooth booking experience and quick confirmation.,2026-04-29
+183,23,510,4,"Great deal, saved a lot with the coupon.",2024-04-21
+184,147,511,2,Customer support response was slow.,2024-08-21
+185,185,512,5,Customer support helped resolve my issue quickly.,2024-04-06
+186,212,517,4,Got the best price compared to other platforms.,2025-09-22
+187,57,520,3,Service was okay for the price paid.,2024-03-14
+188,38,522,5,"App is very easy to use, will book again.",2025-05-06
+189,133,526,5,"Great deal, saved a lot with the coupon.",2025-08-20
+190,109,527,5,"App is very easy to use, will book again.",2025-02-20
+191,159,530,4,Customer support helped resolve my issue quickly.,2024-07-12
+192,123,537,1,Customer support response was slow.,2024-08-10
+193,288,543,5,Loved the itinerary reminders and updates.,2024-01-11
+194,169,545,4,Smooth booking experience and quick confirmation.,2024-03-16
+195,217,548,2,"App crashed during payment, had to retry.",2024-10-09
+196,65,553,4,Customer support helped resolve my issue quickly.,2025-10-15
+197,98,554,5,Loved the itinerary reminders and updates.,2025-12-04
+198,149,559,5,Loved the itinerary reminders and updates.,2026-06-04
+199,124,562,5,"App is very easy to use, will book again.",2025-08-04
+200,82,565,5,Got the best price compared to other platforms.,2024-11-28
+201,293,566,5,"Great deal, saved a lot with the coupon.",2025-01-31
+202,48,569,2,Refund took longer than expected.,2024-03-24
+203,3,572,5,"Great deal, saved a lot with the coupon.",2024-06-25
+204,187,573,4,"Great deal, saved a lot with the coupon.",2024-04-29
+205,272,579,5,Smooth booking experience and quick confirmation.,2024-12-27
+206,164,582,3,"Average experience, could improve UI.",2024-07-31
+207,197,583,1,"App crashed during payment, had to retry.",2024-09-01
+208,213,584,5,"App is very easy to use, will book again.",2026-01-15
+209,125,591,3,Service was okay for the price paid.,2025-11-19
+210,271,592,4,"App is very easy to use, will book again.",2025-06-24
+211,53,594,4,Got the best price compared to other platforms.,2024-06-07
+212,217,597,3,"Booking was fine, nothing exceptional.",2024-07-28
+213,128,598,4,Got the best price compared to other platforms.,2024-05-05
+214,208,599,1,Price changed between search and checkout.,2025-02-14
+215,245,600,5,Loved the itinerary reminders and updates.,2026-02-03
+216,181,602,3,"Booking was fine, nothing exceptional.",2025-05-02
+217,73,606,5,Loved the itinerary reminders and updates.,2025-01-02
+218,178,610,4,Got the best price compared to other platforms.,2024-11-02
+219,84,611,4,Smooth booking experience and quick confirmation.,2024-11-07
+220,198,614,4,"Great deal, saved a lot with the coupon.",2025-03-13
+221,287,618,4,Got the best price compared to other platforms.,2024-02-02
+222,28,619,5,Smooth booking experience and quick confirmation.,2026-02-13
+223,139,620,2,Hidden convenience fee was not clear upfront.,2026-05-10
+224,4,622,4,Smooth booking experience and quick confirmation.,2026-04-12
+225,88,625,5,Smooth booking experience and quick confirmation.,2025-06-15
+226,240,628,4,Loved the itinerary reminders and updates.,2026-07-01
+227,200,629,5,"Great deal, saved a lot with the coupon.",2025-06-14
+228,207,632,5,Customer support helped resolve my issue quickly.,2024-03-23
+229,16,635,4,"App is very easy to use, will book again.",2024-07-08
+230,50,637,3,Service was okay for the price paid.,2024-08-08
+231,129,641,4,Got the best price compared to other platforms.,2025-02-12
+232,221,647,5,"App is very easy to use, will book again.",2025-05-15
+233,10,648,3,"Average experience, could improve UI.",2025-07-21
+234,8,650,5,"Great deal, saved a lot with the coupon.",2026-06-18
+235,113,652,5,Got the best price compared to other platforms.,2025-04-01
+236,154,656,2,Price changed between search and checkout.,2026-05-04
+237,14,658,5,"App is very easy to use, will book again.",2026-08-03
+238,122,661,4,Smooth booking experience and quick confirmation.,2024-05-25
+239,141,662,4,"Great deal, saved a lot with the coupon.",2025-01-13
+240,237,663,2,Refund took longer than expected.,2024-01-23
+241,254,665,4,"App is very easy to use, will book again.",2024-05-20
+242,181,667,5,"App is very easy to use, will book again.",2025-07-09
+243,219,668,5,Customer support helped resolve my issue quickly.,2026-06-25
+244,177,670,2,Price changed between search and checkout.,2024-08-18
+245,124,673,5,"Great deal, saved a lot with the coupon.",2025-04-10
+246,173,679,4,"App is very easy to use, will book again.",2025-09-08
+247,261,681,3,Service was okay for the price paid.,2024-04-05
+248,144,682,4,"App is very easy to use, will book again.",2026-03-07
+249,108,684,4,"App is very easy to use, will book again.",2025-03-24
+250,143,686,5,Got the best price compared to other platforms.,2024-06-06
+251,100,687,5,Customer support helped resolve my issue quickly.,2024-01-09
+252,60,689,5,Loved the itinerary reminders and updates.,2025-01-10
+253,38,690,4,"Great deal, saved a lot with the coupon.",2026-01-04
+254,101,691,5,Got the best price compared to other platforms.,2024-10-12
+255,110,692,4,Got the best price compared to other platforms.,2024-01-15
+256,260,697,4,"App is very easy to use, will book again.",2024-08-13
+257,139,705,5,Smooth booking experience and quick confirmation.,2026-06-13
+258,296,707,5,Got the best price compared to other platforms.,2025-05-01
+259,56,709,4,"Great deal, saved a lot with the coupon.",2025-04-21
+260,251,712,4,Loved the itinerary reminders and updates.,2025-07-24
+261,42,713,4,Smooth booking experience and quick confirmation.,2024-04-18
+262,152,715,5,"Great deal, saved a lot with the coupon.",2024-05-05
+263,268,716,4,"Great deal, saved a lot with the coupon.",2025-12-10
+264,35,717,4,"Great deal, saved a lot with the coupon.",2024-01-08
+265,40,720,4,Loved the itinerary reminders and updates.,2025-09-11
+266,108,722,3,"Booking was fine, nothing exceptional.",2024-06-27
+267,40,723,5,"Great deal, saved a lot with the coupon.",2026-07-15
+268,110,727,5,Customer support helped resolve my issue quickly.,2025-10-02
+269,280,730,5,Smooth booking experience and quick confirmation.,2026-04-12
+270,50,731,5,Customer support helped resolve my issue quickly.,2026-06-09
+271,34,733,5,Smooth booking experience and quick confirmation.,2024-07-21
+272,141,734,3,Service was okay for the price paid.,2025-07-30
+273,96,735,5,"Great deal, saved a lot with the coupon.",2024-11-26
+274,98,736,3,"Average experience, could improve UI.",2026-02-09
+275,223,739,4,Smooth booking experience and quick confirmation.,2024-12-23
+276,265,740,4,Smooth booking experience and quick confirmation.,2025-11-11
+277,54,741,5,Customer support helped resolve my issue quickly.,2025-10-09
+278,240,742,4,"Great deal, saved a lot with the coupon.",2025-07-18
+279,178,746,3,"Booking was fine, nothing exceptional.",2025-04-28
+280,14,751,4,"App is very easy to use, will book again.",2024-08-17
+281,218,753,3,Service was okay for the price paid.,2024-06-12
+282,41,758,5,"App is very easy to use, will book again.",2024-06-09
+283,140,767,5,Loved the itinerary reminders and updates.,2024-01-12
+284,236,769,5,"Great deal, saved a lot with the coupon.",2025-09-02
+285,272,772,5,Smooth booking experience and quick confirmation.,2025-01-26
+286,146,773,4,"Great deal, saved a lot with the coupon.",2025-07-25
+287,293,774,5,Customer support helped resolve my issue quickly.,2024-10-29
+288,186,775,4,"App is very easy to use, will book again.",2025-10-10
+289,211,777,4,"App is very easy to use, will book again.",2024-07-13
+290,167,778,5,Loved the itinerary reminders and updates.,2025-09-23
+291,103,780,5,"Great deal, saved a lot with the coupon.",2024-12-09
+292,188,786,5,"App is very easy to use, will book again.",2025-03-10
+293,252,787,4,Smooth booking experience and quick confirmation.,2026-02-22
+294,72,788,5,Got the best price compared to other platforms.,2024-06-11
+295,157,789,5,Smooth booking experience and quick confirmation.,2025-05-15
+296,265,791,4,"App is very easy to use, will book again.",2025-03-05
+297,126,797,3,Service was okay for the price paid.,2024-09-03
+298,298,798,3,"Booking was fine, nothing exceptional.",2025-05-11
+299,58,800,5,Got the best price compared to other platforms.,2026-01-12
+300,214,807,3,"Average experience, could improve UI.",2026-03-21
+301,141,810,5,Customer support helped resolve my issue quickly.,2024-01-29
+302,287,811,5,Smooth booking experience and quick confirmation.,2026-02-08
+303,57,813,4,Loved the itinerary reminders and updates.,2025-05-03
+304,185,815,5,Customer support helped resolve my issue quickly.,2026-07-20
+305,271,817,4,Customer support helped resolve my issue quickly.,2024-03-12
+306,168,823,3,"Average experience, could improve UI.",2025-07-02
+307,297,828,5,"App is very easy to use, will book again.",2026-01-15
+308,108,829,5,Smooth booking experience and quick confirmation.,2024-04-09
+309,48,836,3,Service was okay for the price paid.,2025-03-18
+310,207,839,5,Loved the itinerary reminders and updates.,2024-10-26
+311,267,840,5,Smooth booking experience and quick confirmation.,2025-06-25
+312,296,843,5,Got the best price compared to other platforms.,2025-02-27
+313,43,846,1,Customer support response was slow.,2026-06-15
+314,272,848,5,Loved the itinerary reminders and updates.,2024-06-22
+315,160,851,5,"Great deal, saved a lot with the coupon.",2024-08-08
+316,106,854,5,Got the best price compared to other platforms.,2025-04-07
+317,119,855,5,Loved the itinerary reminders and updates.,2025-11-13
+318,140,856,5,Got the best price compared to other platforms.,2024-02-25
+319,114,859,4,Loved the itinerary reminders and updates.,2025-09-04
+320,216,861,4,Loved the itinerary reminders and updates.,2026-04-26
+321,222,862,5,Customer support helped resolve my issue quickly.,2025-11-20
+322,142,863,5,Got the best price compared to other platforms.,2025-04-12
+323,165,864,5,Loved the itinerary reminders and updates.,2026-02-04
+324,161,865,5,Customer support helped resolve my issue quickly.,2025-10-11
+325,82,866,4,"Great deal, saved a lot with the coupon.",2024-06-28
+326,39,867,4,"App is very easy to use, will book again.",2024-07-24
+327,151,868,5,"Great deal, saved a lot with the coupon.",2025-09-24
+328,116,869,4,Got the best price compared to other platforms.,2025-04-04
+329,276,873,5,Got the best price compared to other platforms.,2025-08-19
+330,100,881,3,"Average experience, could improve UI.",2024-09-21
+331,42,884,4,"Great deal, saved a lot with the coupon.",2024-12-14
+332,271,885,3,Service was okay for the price paid.,2024-01-23
+333,256,886,4,"Great deal, saved a lot with the coupon.",2024-07-13
+334,174,890,5,"App is very easy to use, will book again.",2024-09-22
+335,51,891,4,Got the best price compared to other platforms.,2026-05-29
+336,103,892,3,"Booking was fine, nothing exceptional.",2024-10-24
+337,293,895,4,Loved the itinerary reminders and updates.,2025-07-23
+338,60,898,5,Smooth booking experience and quick confirmation.,2024-10-27
+339,159,900,5,"App is very easy to use, will book again.",2024-08-02

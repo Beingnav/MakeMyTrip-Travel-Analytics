@@ -1,0 +1,229 @@
+==============================================================================
+MakeMyTrip SQL project — expected query results
+Generated from makemytrip.db. Your output should match these.
+==============================================================================
+
+Q1 — Headline totals: basket value vs gross vs net revenue.
+-----------------------------------------------------------
+TotalBookings  BasketValue  GrossRevenue  RefundedRevenue  NetRevenue  RealisationPct
+-------------  -----------  ------------  ---------------  ----------  --------------
+900            31,788,731   25,002,732    3,496,020        21,506,711  67.7          
+
+Q2 — Revenue by service, with each service's share of the total.
+----------------------------------------------------------------
+ServiceType  Bookings  NetRevenue  RevenuePerBooking  BookingSharePct  RevenueSharePct
+-----------  --------  ----------  -----------------  ---------------  ---------------
+Hotel        258       13,804,359  53,505             28.7             64.2           
+Flight       344       6,503,479   18,905             38.2             30.2           
+Train        95        493,857     5,198              10.6             2.3            
+Bus          139       447,595     3,220              15.4             2.1            
+CarRental    64        257,422     4,022              7.1              1.2            
+
+Q3 — The volume-vs-revenue divergence, stated as a single gap column.
+---------------------------------------------------------------------
+ServiceType  BookingPct  RevenuePct  RevenueMinusBookingGap
+-----------  ----------  ----------  ----------------------
+Hotel        28.7        64.2        35.5                  
+CarRental    7.1         1.2         -5.9                  
+Flight       38.2        30.2        -8                    
+Train        10.6        2.3         -8.3                  
+Bus          15.4        2.1         -13.4                 
+
+Q4 — Booking value distribution by price band. (CASE bucketing, GROUP BY.)
+--------------------------------------------------------------------------
+PriceBand      Bookings  NetRevenue
+-------------  --------  ----------
+1. Under 2.5K  66        80,054    
+2. 2.5K-10K    252       980,386   
+3. 10K-25K     237       2,587,031 
+4. 25K-75K     248       8,144,495 
+5. 75K+        97        9,714,747 
+
+Q5 — Status breakdown overall. (Aggregation with a share window.)
+-----------------------------------------------------------------
+Status     Bookings  SharePct  BasketValue
+---------  --------  --------  -----------
+Confirmed  410       45.6      15,146,520 
+Completed  215       23.9      6,360,191  
+Pending    102       11.3      4,080,379  
+Refunded   90        10        3,496,020  
+Cancelled  83        9.2       2,705,620  
+
+Q6 — Failure rate (cancelled + refunded) by service, ranked worst first.
+------------------------------------------------------------------------
+ServiceType  Bookings  FailedBookings  FailureRatePct
+-----------  --------  --------------  --------------
+Train        95        26              27.4          
+CarRental    64        17              26.6          
+Bus          139       34              24.5          
+Flight       344       58              16.9          
+Hotel        258       38              14.7          
+
+Q7 — Cancellation vs refund split by service, so you can see which kind of
+--------------------------------------------------------------------------
+ServiceType  CancelPct  RefundPct
+-----------  ---------  ---------
+Train        10.5       16.8     
+CarRental    12.5       14.1     
+Bus          10.8       13.7     
+Flight       7.8        9        
+Hotel        8.9        5.8      
+
+Q8 — Money sitting in unconverted baskets (Pending + Cancelled), by service.
+----------------------------------------------------------------------------
+ServiceType  AtRiskBookings  ValueAtRisk
+-----------  --------------  -----------
+Hotel        62              4,836,918  
+Flight       63              1,596,282  
+Bus          32              168,663    
+Train        15              100,355    
+CarRental    13              83,781     
+
+Q9 — Top 10 vendors by net revenue, across every service.
+---------------------------------------------------------
+Vendor                       ServiceType  Bookings  NetRevenue  RevenueRank
+---------------------------  -----------  --------  ----------  -----------
+Taj Riverside Rishikesh      Hotel        8         1,303,458   1          
+Vistara                      Flight       60        1,208,863   2          
+Air India                    Flight       52        1,139,916   3          
+Akasa Air                    Flight       60        1,102,112   4          
+Air India Express            Flight       65        1,074,206   5          
+Radisson Central Chandigarh  Hotel        5         790,011     6          
+SpiceJet                     Flight       31        786,716     7          
+IndiGo                       Flight       47        721,490     8          
+Marriott Royal Shimla        Hotel        3         557,216     9          
+Novotel Grand Varanasi       Hotel        3         524,357     10         
+
+Q10 — Top 3 vendors WITHIN each service. Classic "top-N per group".
+-------------------------------------------------------------------
+ServiceType  Vendor                          Bookings  NetRevenue  rnk
+-----------  ------------------------------  --------  ----------  ---
+Bus          Zingbus                         32        113,008     1  
+Bus          Neeta Travels                   13        55,635      2  
+Bus          KPN Travels                     17        52,845      3  
+CarRental    SUV (Innova/Ertiga)             15        64,217      1  
+CarRental    Hatchback (Swift/i10)           10        55,363      2  
+CarRental    Luxury (Fortuner/Camry)         15        50,606      3  
+Flight       Vistara                         60        1,208,863   1  
+Flight       Air India                       52        1,139,916   2  
+Flight       Akasa Air                       60        1,102,112   3  
+Hotel        Taj Riverside Rishikesh         8         1,303,458   1  
+Hotel        Radisson Central Chandigarh     5         790,011     2  
+Hotel        Marriott Royal Shimla           3         557,216     3  
+Train        Indian Railways - Express       19        144,995     1  
+Train        Indian Railways - Vande Bharat  20        114,740     2  
+Train        Indian Railways - Shatabdi      22        98,228      3  
+
+Q11 — Top hotel cities by revenue, with average rating per city.
+----------------------------------------------------------------
+City        Bookings  NetRevenue  AvgRating
+----------  --------  ----------  ---------
+Rishikesh   17        1,867,821   3.8      
+Shimla      26        1,600,427   4.2      
+Chandigarh  22        1,334,394   3.7      
+Varanasi    14        1,163,584   4.8      
+Chennai     15        1,053,878   4.4      
+Guwahati    13        796,067     4.2      
+Surat       13        779,917     3        
+Lucknow     14        756,439     4        
+Pune        10        658,388     4        
+Bengaluru   20        641,207     3.7      
+
+Q12 — Repeat vs one-time customers, and their revenue.
+------------------------------------------------------
+Segment   Users  AvgBookings  NetRevenue
+--------  -----  -----------  ----------
+One-time  42     1            587,281   
+Repeat    242    3.5          20,919,431
+
+Q13 — Top 10 customers by lifetime net revenue. (Join to Users for names.)
+--------------------------------------------------------------------------
+UserID  Customer         Bookings  NetRevenue  AvgRating
+------  ---------------  --------  ----------  ---------
+214     Tanvi Ahmed      4         551,749     4        
+180     Ira Das          2         403,654     5        
+143     Karan Shah       5         384,873     5        
+110     Meera Sheikh     4         350,761     4.5      
+52      Imran Desai      8         335,781     3        
+185     Nisha Mukherjee  4         308,892     5        
+219     Ananya Ahmed     4         305,219     3.5      
+204     Ira Mukherjee    2         302,495     3        
+73      Vihaan Gupta     5         301,347     4        
+178     Krishna Rao      4         294,195     3.7      
+
+Q14 — Days from registration to a user's FIRST booking (activation gap).
+------------------------------------------------------------------------
+AvgDaysToFirstBooking  MinDays  MaxDays
+---------------------  -------  -------
+383                    -853     1,800  
+
+Q15 — Rating distribution and a simple satisfaction (NPS-style) score.
+----------------------------------------------------------------------
+Reviews  AvgRating  Promoters  Detractors  SatisfactionScore
+-------  ---------  ---------  ----------  -----------------
+339      4.1        256        31          66               
+
+Q16 — Review coverage: what share of bookings actually got a review, by service.
+--------------------------------------------------------------------------------
+ServiceType  Bookings  Reviewed  CoveragePct  AvgRating
+-----------  --------  --------  -----------  ---------
+Flight       344       137       39.8         4.2      
+Hotel        258       94        36.4         4.0      
+Bus          139       52        37.4         4        
+Train        95        33        34.7         4        
+CarRental    64        23        35.9         3.7      
+
+Q17 — Net revenue by payment method. (Group on the view's PaymentType.)
+-----------------------------------------------------------------------
+PaymentType  Payments  NetRevenue  SharePct
+-----------  --------  ----------  --------
+EMI          121       4,620,088   21.5    
+Debit Card   107       3,954,654   18.4    
+UPI          134       3,532,038   16.4    
+Credit Card  123       3,510,644   16.3    
+Net Banking  120       3,155,394   14.7    
+Wallet       110       2,733,894   12.7    
+
+Q18 — Coupon impact: does a coupon lift the basket, and at what discount cost?
+------------------------------------------------------------------------------
+Cohort       Bookings  AvgBasket  AvgDiscountPct
+-----------  --------  ---------  --------------
+With coupon  217       36,974     16.7          
+No coupon    683       34,796     NULL          
+
+Q19 — Monthly net revenue with a running total and a 3-month moving average.
+----------------------------------------------------------------------------
+Month    Bookings  NetRevenue  RunningTotal  MovingAvg3M
+-------  --------  ----------  ------------  -----------
+2024-01  28        1,165,405   1,165,405     1,165,405  
+2024-02  17        338,032     1,503,438     751,719    
+2024-03  29        590,923     2,094,361     698,120    
+2024-04  35        825,943     2,920,304     584,966    
+2024-05  27        689,614     3,609,918     702,160    
+2024-06  39        676,853     4,286,770     730,803    
+2024-07  32        1,180,624   5,467,395     849,030    
+2024-08  31        675,368     6,142,763     844,282    
+2024-09  23        374,753     6,517,516     743,582    
+2024-10  36        579,916     7,097,431     543,346    
+2024-11  28        304,778     7,402,210     419,816    
+2024-12  32        526,733     7,928,943     470,476    
+2025-01  27        225,168     8,154,110     352,226    
+2025-02  27        634,682     8,788,792     462,194    
+2025-03  33        507,920     9,296,712     455,923    
+... (31 rows total)
+
+Q20 — Year-on-year revenue by quarter using LAG.
+------------------------------------------------
+Yr    Qtr  NetRevenue  SameQtrLastYear  YoYPct
+----  ---  ----------  ---------------  ------
+2024  Q1   2,094,361   NULL             NULL  
+2024  Q2   2,192,409   NULL             NULL  
+2024  Q3   2,230,745   NULL             NULL  
+2024  Q4   1,411,427   NULL             NULL  
+2025  Q1   1,367,769   2,094,361        -34.7 
+2025  Q2   2,824,797   2,192,409        28.8  
+2025  Q3   1,650,783   2,230,745        -26   
+2025  Q4   2,478,949   1,411,427        75.6  
+2026  Q1   2,259,151   1,367,769        65.2  
+2026  Q2   2,835,991   2,824,797        0.4   
+2026  Q3   160,329     1,650,783        -90.3 

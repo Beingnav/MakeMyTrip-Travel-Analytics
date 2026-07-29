@@ -1,0 +1,101 @@
+HotelID,Name,Location,CheckInDateTime,CheckOutDateTime,PricePerNight,AvailableRooms
+1,Radisson Palm Chandigarh,Chandigarh,2026-07-29 14:00:15,2026-07-31 11:00:15,15617.64,54
+2,Novotel Skyline Bengaluru,Bengaluru,2024-03-05 14:00:15,2024-03-09 11:00:15,12964.57,3
+3,Ginger Skyline Udaipur,Udaipur,2024-01-20 14:00:23,2024-01-21 11:00:23,14827.13,21
+4,Radisson Garden Dehradun,Dehradun,2024-07-14 14:00:46,2024-07-15 11:00:46,20005.71,44
+5,Oberoi Palm Dehradun,Dehradun,2026-08-31 14:00:12,2026-09-01 11:00:12,19966.1,36
+6,Marriott Grand Varanasi,Varanasi,2024-03-08 14:00:48,2024-03-15 11:00:48,21221.68,37
+7,ITC Central Chennai,Chennai,2026-03-26 14:00:04,2026-03-29 11:00:04,6657.54,53
+8,ITC Royal Chandigarh,Chandigarh,2025-11-10 14:00:31,2025-11-17 11:00:31,11916.02,22
+9,Oberoi Riverside Mumbai,Mumbai,2024-07-19 14:00:50,2024-07-21 11:00:50,14024.41,39
+10,Lemon Tree Palace Amritsar,Amritsar,2026-03-23 14:00:58,2026-03-24 11:00:58,11710.19,22
+11,OYO Premium Skyline Guwahati,Guwahati,2026-02-07 14:00:23,2026-02-09 11:00:23,3531.02,39
+12,Lemon Tree Heritage Goa,Goa,2025-05-19 14:00:34,2025-05-20 11:00:34,9476.0,50
+13,Marriott Royal Udaipur,Udaipur,2024-11-11 14:00:08,2024-11-14 11:00:08,3648.71,60
+14,Lemon Tree Royal Goa,Goa,2026-06-29 14:00:15,2026-07-06 11:00:15,4476.64,11
+15,Treebo Skyline Indore,Indore,2026-07-08 14:00:45,2026-07-13 11:00:45,3886.52,5
+16,Marriott Skyline Lucknow,Lucknow,2024-07-09 14:00:00,2024-07-14 11:00:00,2049.28,26
+17,OYO Premium Lakeview Chandigarh,Chandigarh,2024-06-22 14:00:19,2024-06-24 11:00:19,5225.58,24
+18,Lemon Tree Palace Kolkata,Kolkata,2024-10-11 14:00:27,2024-10-14 11:00:27,4747.88,10
+19,Ginger Royal Indore,Indore,2025-07-19 14:00:54,2025-07-22 11:00:54,9094.72,60
+20,Radisson Palace Ahmedabad,Ahmedabad,2026-10-12 14:00:11,2026-10-17 11:00:11,3960.84,19
+21,OYO Premium Skyline Delhi,Delhi,2026-03-21 14:00:44,2026-03-28 11:00:44,18042.34,21
+22,OYO Premium Heritage Surat,Surat,2025-11-16 14:00:41,2025-11-23 11:00:41,7868.79,38
+23,ITC Skyline Shimla,Shimla,2025-02-15 14:00:24,2025-02-18 11:00:24,21368.25,18
+24,Radisson Riverside Manali,Manali,2026-10-02 14:00:01,2026-10-09 11:00:01,9396.32,52
+25,Radisson Central Chandigarh,Chandigarh,2026-01-17 14:00:47,2026-01-22 11:00:47,21944.75,11
+26,Radisson Palace Varanasi,Varanasi,2024-02-25 14:00:25,2024-03-02 11:00:25,17913.25,53
+27,Ginger Heritage Shimla,Shimla,2024-05-21 14:00:47,2024-05-27 11:00:47,14593.39,15
+28,Novotel Royal Jaipur,Jaipur,2024-11-11 14:00:20,2024-11-18 11:00:20,10871.15,38
+29,Novotel Lakeview Nagpur,Nagpur,2026-03-31 14:00:20,2026-04-05 11:00:20,2542.66,23
+30,Radisson Riverside Shimla,Shimla,2024-06-23 14:00:55,2024-06-30 11:00:55,5160.04,39
+31,Novotel Royal Mumbai,Mumbai,2026-03-29 14:00:23,2026-04-05 11:00:23,2013.07,16
+32,OYO Premium Central Ahmedabad,Ahmedabad,2026-11-11 14:00:19,2026-11-16 11:00:19,6264.84,23
+33,Treebo Heritage Chandigarh,Chandigarh,2026-08-06 14:00:47,2026-08-12 11:00:47,8768.34,1
+34,Oberoi Royal Nagpur,Nagpur,2024-08-02 14:00:22,2024-08-06 11:00:22,18592.62,46
+35,Ginger Garden Chennai,Chennai,2025-12-14 14:00:20,2025-12-17 11:00:20,12326.52,22
+36,Ginger Riverside Nagpur,Nagpur,2024-07-18 14:00:11,2024-07-24 11:00:11,3156.92,2
+37,Marriott Royal Shimla,Shimla,2024-08-23 14:00:20,2024-08-30 11:00:20,15478.21,10
+38,Treebo Heritage Manali,Manali,2025-05-14 14:00:12,2025-05-16 11:00:12,8485.99,27
+39,ITC Heritage Surat,Surat,2025-04-19 14:00:50,2025-04-25 11:00:50,14737.67,27
+40,Ginger Central Chandigarh,Chandigarh,2024-02-29 14:00:32,2024-03-02 11:00:32,10476.97,0
+41,Oberoi Central Shimla,Shimla,2025-03-15 14:00:32,2025-03-18 11:00:32,3855.39,55
+42,Radisson Palace Guwahati,Guwahati,2025-01-17 14:00:05,2025-01-20 11:00:05,4101.89,42
+43,OYO Premium Skyline Nagpur,Nagpur,2026-12-16 14:00:09,2026-12-19 11:00:09,14148.43,37
+44,Ginger Central Hyderabad,Hyderabad,2025-12-13 14:00:55,2025-12-20 11:00:55,5285.06,43
+45,Oberoi Heritage Shimla,Shimla,2025-09-01 14:00:21,2025-09-06 11:00:21,8126.35,15
+46,ITC Lakeview Goa,Goa,2024-08-27 14:00:52,2024-08-30 11:00:52,9646.96,38
+47,Ginger Lakeview Chennai,Chennai,2026-02-24 14:00:08,2026-02-26 11:00:08,15807.35,41
+48,ITC Heritage Kolkata,Kolkata,2024-12-07 14:00:38,2024-12-10 11:00:38,8154.52,28
+49,Ginger Heritage Amritsar,Amritsar,2024-04-19 14:00:19,2024-04-20 11:00:19,5741.6,24
+50,Novotel Palace Guwahati,Guwahati,2026-11-01 14:00:39,2026-11-05 11:00:39,10195.73,53
+51,OYO Premium Grand Surat,Surat,2026-09-27 14:00:22,2026-09-28 11:00:22,17876.79,14
+52,Treebo Palm Goa,Goa,2024-03-07 14:00:25,2024-03-09 11:00:25,5197.82,29
+53,Oberoi Central Dehradun,Dehradun,2026-10-11 14:00:53,2026-10-16 11:00:53,4106.97,49
+54,Taj Palace Guwahati,Guwahati,2026-01-21 14:00:06,2026-01-28 11:00:06,12836.34,27
+55,Taj Palace Hyderabad,Hyderabad,2025-05-21 14:00:21,2025-05-28 11:00:21,7108.87,55
+56,Radisson Garden Bengaluru,Bengaluru,2026-06-18 14:00:26,2026-06-25 11:00:26,18176.19,37
+57,Novotel Heritage Shimla,Shimla,2025-12-19 14:00:08,2025-12-25 11:00:08,14246.25,50
+58,Marriott Lakeview Pune,Pune,2025-02-27 14:00:40,2025-03-04 11:00:40,7477.92,34
+59,OYO Premium Palm Kolkata,Kolkata,2025-10-24 14:00:16,2025-10-27 11:00:16,21038.43,32
+60,Novotel Grand Varanasi,Varanasi,2024-07-14 14:00:11,2024-07-21 11:00:11,21848.22,55
+61,ITC Riverside Udaipur,Udaipur,2024-09-16 14:00:52,2024-09-18 11:00:52,18535.33,48
+62,OYO Premium Palm Varanasi,Varanasi,2026-03-15 14:00:14,2026-03-17 11:00:14,14481.82,24
+63,Oberoi Skyline Surat,Surat,2024-06-03 14:00:10,2024-06-10 11:00:10,12215.39,17
+64,Marriott Central Shimla,Shimla,2026-01-25 14:00:17,2026-01-29 11:00:17,1849.96,49
+65,Marriott Royal Manali,Manali,2024-07-09 14:00:29,2024-07-15 11:00:29,17872.69,25
+66,Lemon Tree Riverside Pune,Pune,2026-05-29 14:00:47,2026-06-02 11:00:47,18532.54,21
+67,Ginger Riverside Guwahati,Guwahati,2024-09-24 14:00:45,2024-10-01 11:00:45,19861.92,48
+68,Ginger Grand Mumbai,Mumbai,2024-04-04 14:00:31,2024-04-10 11:00:31,4309.59,54
+69,Novotel Garden Kolkata,Kolkata,2026-06-22 14:00:16,2026-06-23 11:00:16,21913.02,58
+70,Lemon Tree Royal Chennai,Chennai,2025-09-10 14:00:17,2025-09-17 11:00:17,15022.68,16
+71,Taj Skyline Bengaluru,Bengaluru,2026-01-31 14:00:34,2026-02-02 11:00:34,14437.21,46
+72,Oberoi Royal Shimla,Shimla,2025-04-24 14:00:40,2025-04-30 11:00:40,1821.94,30
+73,Treebo Palace Bengaluru,Bengaluru,2024-09-28 14:00:54,2024-09-30 11:00:54,1987.6,44
+74,ITC Palace Kochi,Kochi,2024-09-03 14:00:33,2024-09-09 11:00:33,3230.73,24
+75,Marriott Palm Bengaluru,Bengaluru,2024-07-28 14:00:26,2024-07-31 11:00:26,4570.01,49
+76,ITC Royal Rishikesh,Rishikesh,2024-09-29 14:00:32,2024-10-05 11:00:32,12516.27,0
+77,Radisson Heritage Amritsar,Amritsar,2024-12-02 14:00:24,2024-12-05 11:00:24,20381.86,39
+78,Oberoi Heritage Varanasi,Varanasi,2026-06-25 14:00:34,2026-06-26 11:00:34,16999.4,37
+79,Marriott Heritage Manali,Manali,2026-02-25 14:00:56,2026-03-01 11:00:56,6805.28,41
+80,OYO Premium Central Bengaluru,Bengaluru,2025-05-23 14:00:54,2025-05-28 11:00:54,7555.4,60
+81,Radisson Lakeview Shimla,Shimla,2024-02-24 14:00:18,2024-02-27 11:00:18,14059.92,12
+82,Taj Garden Manali,Manali,2026-03-13 14:00:37,2026-03-19 11:00:37,11796.73,7
+83,Oberoi Lakeview Ahmedabad,Ahmedabad,2026-10-20 14:00:54,2026-10-25 11:00:54,19752.24,0
+84,OYO Premium Skyline Lucknow,Lucknow,2025-10-10 14:00:19,2025-10-14 11:00:19,9181.33,43
+85,OYO Premium Royal Kolkata,Kolkata,2026-08-22 14:00:27,2026-08-23 11:00:27,2078.63,13
+86,Lemon Tree Lakeview Mumbai,Mumbai,2024-05-03 14:00:23,2024-05-08 11:00:23,17295.62,27
+87,Treebo Lakeview Shimla,Shimla,2026-04-03 14:00:03,2026-04-09 11:00:03,14244.15,17
+88,Radisson Heritage Bengaluru,Bengaluru,2025-09-26 14:00:37,2025-10-01 11:00:37,12635.08,25
+89,Novotel Garden Dehradun,Dehradun,2024-05-15 14:00:34,2024-05-21 11:00:34,2969.7,5
+90,OYO Premium Grand Indore,Indore,2024-08-25 14:00:24,2024-08-30 11:00:24,8047.66,47
+91,ITC Grand Varanasi,Varanasi,2024-12-25 14:00:55,2024-12-26 11:00:55,5109.42,60
+92,Lemon Tree Heritage Lucknow,Lucknow,2026-12-07 14:00:53,2026-12-14 11:00:53,9311.76,47
+93,Taj Riverside Rishikesh,Rishikesh,2025-07-04 14:00:53,2025-07-11 11:00:53,18103.58,17
+94,OYO Premium Royal Bhopal,Bhopal,2024-05-10 14:00:25,2024-05-16 11:00:25,11822.18,32
+95,OYO Premium Heritage Lucknow,Lucknow,2024-04-23 14:00:24,2024-04-30 11:00:24,9227.29,16
+96,Oberoi Garden Rishikesh,Rishikesh,2024-07-29 14:00:43,2024-08-04 11:00:43,16763.76,0
+97,Ginger Riverside Mumbai,Mumbai,2024-01-26 14:00:13,2024-01-27 11:00:13,9536.19,9
+98,Novotel Garden Kolkata,Kolkata,2024-03-13 14:00:45,2024-03-20 11:00:45,8300.4,26
+99,Oberoi Central Manali,Manali,2025-10-17 14:00:34,2025-10-24 11:00:34,9330.72,32
+100,Treebo Grand Varanasi,Varanasi,2024-04-17 14:00:47,2024-04-19 11:00:47,21072.4,4

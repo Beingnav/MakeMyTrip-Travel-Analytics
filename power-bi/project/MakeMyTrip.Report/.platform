@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "MakeMyTrip"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "b5e129b1-1e4f-476a-8b70-96e5a45c7814"
+  }
+}
